@@ -1,0 +1,28 @@
+table{
+    border-collapse: collapse;
+    margin:10px auto;
+}
+td{
+    width:20px;
+    height:20px;
+    /**
+    直接为td添加border就可以为一整个table添加外边框了;
+    **/
+    border:1px solid #eee;
+}
+td.block{
+    background: #be95ff;
+}
+/*移动端的样式处理*/
+.operate-bar{
+    font-size:30px;
+}
+.height20percent{
+    height:30%;
+}
+.height33percent{
+    height:33%;
+}
+.height100percent{
+    height:100%;
+}

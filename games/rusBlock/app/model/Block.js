@@ -4,10 +4,9 @@ define(function() {
     var mid = Math.ceil(width/2);
 
     var Block = function() {
+        this.callbacks = [];
         //保存Block的数据, 包含了x，y;
         this.block = getBlock();
-        this.callbacks = [];
-        this.inc = 0;
         this.start();
     };
 
@@ -56,6 +55,12 @@ define(function() {
     };
 
     $.extend(Block.prototype, {
+        newBlock : function() {
+            this.callbacks = [];
+            //保存Block的数据, 包含了x，y;
+            this.block = getBlock();
+            this.start();
+        },
         //生成blok
         get : function() {
             return this.block;
@@ -175,10 +180,9 @@ define(function() {
 
             return true;
         },
-        //state "left","right","down";
+        //state "left","right","down" ,按向下方向键的时候我们不做限制次数;
         add : function(fn,state) {
             if(state === "left" && this.stateLeft=== true ) {return };
-            if(state === "down" && this.stateDown=== true ) {return };
             if(state === "right" && this.stateRight=== true ) {return };
             //更改状态;
             this["state" + state[0].toUpperCase()+state.slice(1)] = true;
@@ -194,7 +198,6 @@ define(function() {
             this.callbacks = [];
             this.stateLeft = false;
             this.stateRight = false;
-            this.stateDown = false;
             //为了链式调用;
             return this;
         },
@@ -204,7 +207,7 @@ define(function() {
         destory : function() {
             clearInterval(this.timer);
             $.dialog({
-                content : '对话框内容',
+                content : '游戏失败',
                 title : 'ok',
                 ok : function() {
                     location.reload();

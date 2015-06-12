@@ -1,15 +1,15 @@
-define(function() {
-    var isMobile = function() {
-        return navigator.userAgent.toLowerCase().indexOf("mobile") !== -1 || navigator.userAgent.toLowerCase().indexOf("android") !== -1  || navigator.userAgent.toLowerCase().indexOf("pad") !== -1;
-    }
-    //分数模块;
+define(["app/util"],function(util) {
+    //分数模块,游戏开始的时候会用到;
     var score = {};
     require(["app/model/score"],function(defineScore) {
         score = defineScore;
     });
+
     var startGame = function() {
+        //把当前的input元素禁用;
         $(this).attr("disabled","true");
-        requirejs(["app/model/data","app/view/init","app/model/Block","app/view/mobileDOM"],function(data, view, Block, mobileDOM){
+        requirejs(["app/model/data","app/view/init","app/model/Block"], function(data, view, Block){
+            //初始化方块;
             var block = new Block;
             var mapData = {};
 
@@ -27,20 +27,15 @@ define(function() {
             block.onend(function() {
                 //这个说明当前的block触底了
                 data.set( mapData );
-                //我们需要重新生成一个方块;
-                block = new Block();
-                block.onupdate = this.onupdate;
-                block.onend = this.onend;
-                block.moveRight = this.moveRight;
-                block.moveLeft = this.moveLeft;
-                block.rotate = this.rotate;
-                block.ontestY = this.ontestY;
-                block.testTouch = this.testTouch;
+                //我们需要重新生成一个方块, 直接调用newBlock即可;
+                block.newBlock();
                 //通过data计算，如果有连接起来的一条线，就执行SCORE回调, 随之会更新当前界面的分值;
                 //如果方块跑到了最上面就是游戏失败了;
                 data.oncalculate( score.addScore , block.destory.bind(block));
             });
-            if(!isMobile()) {
+
+            //现在才开始绑定事件
+            if(!util.isMobile()) {
                 $(window).keydown(function(ev) {
                     if(ev.keyCode === 37) {
                         block.add(block.moveLeft,"left");
@@ -53,7 +48,6 @@ define(function() {
                     };
                 });
             }else{
-                mobileDOM.addDOM();
                 $(".arrow-up").tap(function() {
                     block.rotate();
                 });
@@ -80,5 +74,5 @@ define(function() {
 
     return function() {
         bindEvent();
-    }
+    };
 });

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 table{
     border-collapse: collapse;
     margin:10px auto;
@@ -20,8 +21,11 @@ td.block{
 .height20percent{
     height:30%;
 }
-.height33percent{
-    height:33%;
+.height30percent{
+    height:30%;
+}
+.height40percent{
+    height:40%;
 }
 .height100percent{
     height:100%;
@@ -30,9 +34,6 @@ td.block{
     font-size:30px;
     color:#34495e;
 }
-
-@charset "UTF-8";
-
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -67,7 +68,6 @@ td.block{
         transform: translate3d(0,-4px,0);
     }
 }
-
 .bounce {
     -webkit-animation-name: bounce;
     animation-name: bounce;

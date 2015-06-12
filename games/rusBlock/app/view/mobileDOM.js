@@ -3,10 +3,10 @@ define(function() {
     <div class="navbar-fixed-bottom height20percent operate-bar"  >\
         <div class="container height100percent">\
             <div class="row text-center height100percent">\
-                <div class="height33percent arrow-up">\
+                <div class="height40percent arrow-up">\
                     <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>\
                 </div>\
-                <div  class="height33percent">\
+                <div  class="height30percent">\
                     <div class="col-xs-6 arrow-left">\
                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>\
                     </div>\
@@ -14,7 +14,7 @@ define(function() {
                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>\
                     </div>\
                 </div>\
-                <div  class="height33percent arrow-down">\
+                <div  class="height30percent arrow-down">\
                     <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>\
                 </div>\
             </div>\

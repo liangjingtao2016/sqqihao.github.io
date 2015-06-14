@@ -12,7 +12,7 @@ requirejs.config({
 
 requirejs(["app/controller/mainController","app/view/mobileDOM","app/util"], function(con, mobileDOM, util) {
 
-    if(util.isMobile) {
+    if(util.isMobile()) {
         mobileDOM.addDOM();
     };
     con();

@@ -189,7 +189,7 @@
                                 data[i][k] = data[i][j];
                                 data[i][j] = 0;
                                 break;
-                            }else if(data[i][k]!==0 && data[i][j] === data[i][k] && this.no_block_horizontal(i, k, j)){
+                            }else if(data[i][k]!==0 && data[i][j] === data[i][k] && this.no_block_horizontal(i, j, k)){
                                 result.push( {form : {y:i,x:j}, to :{y:i,x:k}} );
                                 data[i][k] += data[i][j];
                                 data[i][j] = 0;
@@ -244,7 +244,7 @@
                                 data[k][i] = data[j][i];
                                 data[j][i] = 0;
                                 break;
-                            }else if(data[k][i]!==0 && data[k][i] === data[j][i] && this.no_block_vertical(i, k, j)){
+                            }else if(data[k][i]!==0 && data[k][i] === data[j][i] && this.no_block_vertical(i, j, k)){
                                 result.push( {form : {y:j,x:i}, to :{y:k,x:i}} );
                                 data[k][i] += data[j][i];
                                 data[j][i] = 0;

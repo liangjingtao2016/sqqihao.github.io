@@ -105,7 +105,7 @@
             for(var i=0; i<data.length; i++ ) {
                 for(var j=0; j< data[i].length; j++ ) {
                     if( data[i][j] === 0) {
-                        arr.push({x:i, y:j});
+                        arr.push({x:j, y:i});
                     };
                 };
             };
@@ -130,7 +130,7 @@
             };
             return true;
         },
-        //i 是指x轴确定;
+        //和上面一个方法一样，检测的方向是竖排;
         no_block_vertical : function(i, k, j) {
             var data = this.map;
             k++;

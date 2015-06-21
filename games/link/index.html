@@ -14,14 +14,16 @@
         }
         td{
             border:1px solid #f5f5f5;
-            width:40px;
-            height:40px;
             text-align: center;
             line-height: 40px;
             cursor: pointer;
         }
         td.active{
             opacity: 0.7;
+        }
+        td div{
+            width:40px;
+            height:40px;
         }
         .bg1{
             /*background: #2ECC71;*/
@@ -69,8 +71,10 @@
     <% for(var i=0; i<data.length; i++) {%>
         <tr>
             <% for(var j=0; j< data[i].length; j++ ) { %>
-                <td id="<%=i%><%=j%>" class="bg<%=data[i][j]%>"  data-x="<%=j%>" data-y="<%=i%>" data-data="<%=data[i][j]%>" data-info='{"x":<%=[j]%>,"y":<%=[i]%>}'>
-                    <%=getImg(data[i][j])%>
+                <td  id="<%=i%><%=j%>" class="bg<%=data[i][j]%>"  data-x="<%=j%>" data-y="<%=i%>" data-data="<%=data[i][j]%>" data-info='{"x":<%=[j]%>,"y":<%=[i]%>}'>
+                    <div>
+                        <%=getImg(data[i][j])%>
+                    </div>
                 </td>
             <% } %>
         </tr>
@@ -359,6 +363,8 @@
                         _this.renderHTML();
                     },2000);
                 };
+                prev.attr("data-data", "");
+                target.attr("data-data","")
             }else{
                 this.prev = target;
             };

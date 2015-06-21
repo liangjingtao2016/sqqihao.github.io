@@ -62,8 +62,8 @@ define(function() {
             {x:mid,y:0}
         ];
         d.name = p.name = "d";
-        return s
-        //return [s, z, l, t, p, d, n][Math.floor(Math.random()*7)];
+        //return s
+        return [s, z, l, t, p, d, n][Math.floor(Math.random()*7)];
     };
 
     $.extend(Block.prototype, {

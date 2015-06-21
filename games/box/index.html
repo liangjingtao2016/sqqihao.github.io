@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.3, maximum-scale=2.0, user-scalable=yes">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://sqqihao.github.io/games/rusBlock/libs/Tiny-Alert/css/zepto.alert.css"/>
     <script src="libs/jquery-1.9.1.min.js"></script>
@@ -119,6 +119,26 @@
     #person.left{
         background-position:-150px 0 ;
     }
+    /*移动端的DOM*/
+    .operate-bar{
+        font-size:30px;
+    }
+    .height20percent{
+        height:30%;
+    }
+    .height30percent{
+        height:30%;
+    }
+    .height40percent{
+        height:40%;
+    }
+    .height100percent{
+        height:100%;
+    }
+    .font30{
+        font-size:30px;
+        color:#34495e;
+    }
 </style>
 <body>
     <div id="select">
@@ -144,6 +164,7 @@
             </div>
         </div>
     </div>
+
     <script>
         G = {
             level: [
@@ -481,6 +502,33 @@
                 this.controller();
             },
             controller : function() {
+                function mobileDOM() {
+                    var mobileDOMString = '\
+                        <div class="navbar-fixed-bottom height20percent operate-bar"  >\
+                            <div class="container height100percent">\
+                                <div class="row text-center height100percent">\
+                                    <div class="height40percent arrow-up">\
+                                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>\
+                                    </div>\
+                                    <div  class="height30percent">\
+                                        <div class="col-xs-6 arrow-left">\
+                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>\
+                                        </div>\
+                                        <div class="col-xs-6 arrow-right">\
+                                            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>\
+                                        </div>\
+                                    </div>\
+                                    <div  class="height30percent arrow-down">\
+                                        <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        ';
+                        +function addDOM() {
+                            $("#game").append( mobileDOMString );
+                        }();
+                };
                 var _this = this;
                 if( window.util.isMobile() ) {
                     $(window).on("swipeLeft",function() {
@@ -491,6 +539,20 @@
                         _this.step("top");
                     }).on("swipeDown",function() {
                         _this.step("bottom");
+                    });
+                    mobileDOM();
+
+                    $(".arrow-up").tap(function() {
+                        _this.step("top");
+                    });
+                    $(".arrow-down").tap(function() {
+                        _this.step("bottom");
+                    });
+                    $(".arrow-left").tap(function() {
+                        _this.step("left");
+                    });
+                    $(".arrow-right").tap(function() {
+                        _this.step("right");
                     });
                 }else{
                     $(window).on("keydown", function(ev) {

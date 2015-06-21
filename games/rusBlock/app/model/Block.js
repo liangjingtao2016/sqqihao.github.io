@@ -18,6 +18,9 @@ define(function() {
             {x:mid , y : 1},
             {x:mid , y : 2}
         ];
+        //作为标识，在做旋转的时候会特殊判断;
+        s.name = "s";
+
         //Z
         var z = [
             {x:mid, y:0},
@@ -25,6 +28,14 @@ define(function() {
             {x:mid+1, y:1},
             {x:mid+2, y:1}
         ];
+        //相反的Z, 随便起个名字叫做n;
+        var n = [
+            {x:mid+2, y:0},
+            {x:mid+1, y:0},
+            {x:mid+1, y:1},
+            {x:mid, y:1}
+        ];
+
         //L
         var l = [
             {x:mid,y:0},
@@ -32,6 +43,7 @@ define(function() {
             {x:mid,y:2},
             {x:mid+1,y:2}
         ];
+
         // 土字形;
         var t = [
             {x:mid+1,y:0},
@@ -49,9 +61,9 @@ define(function() {
         var d = [
             {x:mid,y:0}
         ];
-        d.returnVal = p.returnVal = true;
-
-        return [s, z, l, t, p, d][Math.floor(Math.random()*6)];
+        d.name = p.name = "d";
+        return s
+        //return [s, z, l, t, p, d, n][Math.floor(Math.random()*7)];
     };
 
     $.extend(Block.prototype, {
@@ -69,7 +81,7 @@ define(function() {
         rotate : function() {
             var block = this.get();
             //是dot这玩意儿的话，就直接return;
-            if(block.returnVal === true) {
+            if(block.name === "d") {
                 return;
             };
             var minX = 1000;
@@ -112,6 +124,7 @@ define(function() {
                     if(_result[j][i] === 1) {
                         var valX = i+minX;
                         var valY = j+minY;
+                        if(block.name === "s") {valY-=1;result.name="s"};
                         //如果计算出来的值超过了地图的边界;
                         if(valX<0||valX>width||valY<0||valY>height||!this.testTouch(valX,valY)){
                             return;

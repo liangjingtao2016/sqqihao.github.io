@@ -84,7 +84,7 @@
     var el = document.getElementById("tbody");
     var elCan = document.getElementById("canvas");
     var tpl = document.getElementById("tr-td-tpl");
-    //console.log( _.template( tpl.innerHTML )( {data : [ [1,2,3,4],[ 1,2,3,4],[ 1,2,3,4],[ 1,2,3,4]]} ) );
+
     var cfg = {
         width : 8,
         height : 8
@@ -121,6 +121,7 @@
              this.el = $(el);
              this.score = 0;
          };
+
     $.extend( Data.prototype, {
         /**
          * @desc 把两个

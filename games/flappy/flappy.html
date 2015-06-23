@@ -185,6 +185,7 @@
         $.extend(B.prototype , {
             draw : function() {
                     if(!this.collideTest()){
+                        window.runList = [];
                         this.overFn();
                     };
                     this.context.drawImage( this.img , 0, (this.img.height/4)*this.swing, this.img.width,(this.img.height/4) , this.x, this.y, this.w, this.h);

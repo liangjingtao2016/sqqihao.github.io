@@ -8,6 +8,9 @@
     <script src="js/underscore1.8.js"></script>
 </head>
 <style>
+    body{
+        margin:0;
+    }
     .levels{
         position: fixed;
         top:0;
@@ -16,7 +19,10 @@
     .levels .level{
         cursor: pointer;
         margin:10px;
-        padding:4px;
+        padding:16px;
+        color:#fff;
+        background: rgba(41, 182, 255, 0.61);
+        border-radius:10px;
     }
 </style>
 <body>
@@ -25,6 +31,7 @@
     <script>
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext('2d');
+        canvas.height = document.documentElement.clientHeight;
         var util = {
             isMobile : typeof document.ontouchstart ? true : false,
             loadImgs: function(arr) {
@@ -37,7 +44,7 @@
                 }
             }
         };
-        util.loadImgs( ["img/bird.png","img/pipe.png","img/pipe-down.png","img/pipe-up.png"] );
+        util.loadImgs( ["img/bird.png","img/pipe.png","img/pipe-down.png","img/pipe-up.png", "img/sky.png"] );
 
         var Mode = function( level ) {
             this.state = ["e", "n", "h"];
@@ -65,8 +72,7 @@
             });
 
             var b = new B({canvas : canvas, overFn : function() {
-                //alert("game over");
-                location.reload();
+                context.clearRect(0,0,canvas.width, canvas.height);
             }});
             b.fly();
             b.setPipeList( pipeList );
@@ -76,18 +82,23 @@
             if( util.isMobile ) {
                 document.body.ontouchstart = function() {
                     b.jump();
-                }
-            }
+                };
+            };
             this.runList = [
                 function() {
                     context.clearRect(0,0,canvas.width, canvas.height);
                 },
+                function() {
+                    var skyImg = new Image();
+                    skyImg.src= "img/sky.png";
+                    context.drawImage(skyImg, 0, 0,canvas.width, canvas.height  );
+                },
                 s.draw.bind(s),
                 (function() {
-                    var pipe = new Pipe({canvas : canvas, x : 200, x1 : 200});
+                    var pipe = new Pipe({canvas : canvas, x : 200, x1 : 200, score : s, level : level});
                     return function() {
                         if(pipe.x<-40) {
-                            pipe =new Pipe({canvas : canvas});
+                            pipe =new Pipe({canvas : canvas, score : s, level : level});
                         }else{
                             pipe.draw().moveLeft();
                         };
@@ -95,10 +106,10 @@
                     };
                 })(),
                 (function() {
-                    var pipe = new Pipe({canvas : canvas, x : 300, x1 : 300});
+                    var pipe = new Pipe({canvas : canvas, x : 300, x1 : 300, score : s, level : level});
                     return function() {
                         if(pipe.x<-40) {
-                            pipe =new Pipe({canvas : canvas});
+                            pipe =new Pipe({canvas : canvas, score : s, level : level});
                         }else{
                             pipe.draw().moveLeft();
                         };
@@ -106,10 +117,10 @@
                     };
                 })(),
                 (function() {
-                    var pipe = new Pipe({canvas : canvas, x : 400, x1 : 400});
+                    var pipe = new Pipe({canvas : canvas, x : 400, x1 : 400, score : s, level : level});
                     return function() {
                         if(pipe.x<-40) {
-                            pipe =new Pipe({canvas : canvas});
+                            pipe =new Pipe({canvas : canvas, score : s, level : level});
                         }else{
                             pipe.draw().moveLeft();
                         };
@@ -118,10 +129,10 @@
                 })(),
                 (function() {
                     //554
-                    var pipe = new Pipe({canvas : canvas, x : 500, x1 : 500});
+                    var pipe = new Pipe({canvas : canvas, x : 500, x1 : 500, score : s, level : level});
                     return function() {
                         if(pipe.x<-40) {
-                            pipe =new Pipe({canvas : canvas});
+                            pipe =new Pipe({canvas : canvas, score : s, level : level});
                         }else{
                             pipe.draw().moveLeft();
                         };
@@ -153,7 +164,6 @@
             },
             addScore : function() {
                 this.score++;
-                this.draw();
             }
         });
 
@@ -209,8 +219,6 @@
                     };
                 };
                 return true;
-                //var whatColor = this.context.getImageData(this.x, this.y ,  this.w, this.h);
-                //clearInterval(this.flyer);
             },
             jump : function() {
                 if(this.jumpFlag)
@@ -231,7 +239,8 @@
 
         var Pipe = function( opt ) {
             opt = opt || {};
-            var gapWidth = 100;
+            this.level = opt.level || 0;
+            var gapWidth = this.level == 2 ? 100 : this.level == 1 ? 150 : this.level == 0 ? 200 : 200;
             var height = opt.canvas.height - gapWidth;
             var img = document.createElement("img");
             img.src="img/pipe.png";
@@ -255,6 +264,8 @@
             this.y1 = opt.y1 || this.h+gapWidth;
             this.w1 = opt.w1 || 40;
             this.h1 = opt.w1 || height-this.h;
+
+            this.score = opt.score || {};
         };
         $.extend( Pipe.prototype , {
             draw : function() {
@@ -269,6 +280,9 @@
             moveLeft : function () {
                 this.x--;
                 this.x1--;
+                if(this.score && this.x === 30) {
+                    this.score.addScore();
+                }
             },
             destory : function() {
 
@@ -279,8 +293,6 @@
         });
 
         mode = new Mode;
-        //手动触发;
-        mode.buttons[0].children[0].onclick();
     </script>
 </body>
 </html>

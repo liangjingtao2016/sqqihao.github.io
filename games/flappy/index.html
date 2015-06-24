@@ -160,6 +160,8 @@
         };
         $.extend(S.prototype, {
             draw : function() {
+
+                this.ctx.font="24px Georgia";
                 this.ctx.fillText(this.score, this.left, this.top);
             },
             addScore : function() {

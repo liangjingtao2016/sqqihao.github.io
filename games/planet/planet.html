@@ -5,7 +5,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>save sun</title>
+    <title>黑洞地球保卫战</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
@@ -46,6 +46,32 @@
     };
     TaskList.prototype.clearInterval = function() {
         clearInterval( this.timer );
+    };
+
+
+    var util = {
+        isMobile : typeof document.ontouchstart === "object" ? true : false,
+        loadImgs: function(arr, cb) {
+            var obj = {};
+            for (var i = 0; i < arr.length; i++) {
+                (function(i) {
+                    var img = new Image();
+                    img.onload = function () {
+                        console.log(this.src);
+                        obj[arr[i]] = img;
+                        done();
+                    }
+                    img.src = arr[i];
+                })(i);
+            };
+            var len = arr.length;
+            function done(  ){
+                if( --len===0 ) {
+                    cb( obj );
+                };
+            };
+            return obj;
+        }
     };
 
     //计算运动的库
@@ -201,28 +227,17 @@
     canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
-    var util = {
-        isMobile : typeof document.ontouchstart == "object" ? true : false,
-        loadImgs: function(arr) {
-            for (var i = 0; i < arr.length; i++) {
-                var img = new Image();
-                img.onload = function () {
-                    console.log(this.src);
-                }
-                img.src = arr[i];
-            }
-        }
-    };
-
     var Ev = function( opt ) {
         this.canvas = opt.canvas || {};
         this.context = this.canvas&&this.canvas.getContext("2d") || opt.context || {};
     };
     Ev.prototype.draw = function() {
+        /*
         this.context.beginPath();
         this.context.fillStyle = "#f5f5f5";
         this.context.rect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fill();
+        */
     };
 
     //为行星添加改变阴影的方法, 用来继承;
@@ -253,7 +268,7 @@
     Air.prototype.draw = function() {
         this.context.save();
         this.context.beginPath();
-        this.context.fillStyle = "#9B59B6";
+        this.context.fillStyle = "#000";
         this.changeShadow();
         this.context.shadowBlur =  this.shadow;
         this.context.shadowColor = "#9B59B6";
@@ -287,12 +302,32 @@
         this.context = this.canvas&&this.canvas.getContext("2d") || opt.context || {};
         this.x = this.canvas.width/2;
         this.y = this.canvas.height/2;
-        this.w = opt.w || 40;
+        this.w = opt.w || 80;
         this.time = 1;
+        this.img = opt.img;
     };
     Star.prototype =  new Shadow;
     Star.prototype.draw = function () {
         this.time++;
+
+        //画光晕
+        this.context.save();
+        this.context.arc(this.x, this.w*2+10, 70  ,0, 360, false);
+        this.context.closePath();
+        this.changeShadow();
+        //添加阴影
+        this.context.shadowBlur =  this.shadow;
+        this.context.shadowColor = "#E67E22";
+        /*
+         this.context.color = this.context.createRadialGradient(this.x,this.y,0,this.x,this.y, this.w);
+         //设置渐变效果
+         this.context.color.addColorStop(0,"#D35400");//渐变开始点和颜色
+         this.context.color.addColorStop(1,"#E67E22");//渐变结束点和颜色
+         */
+        this.context.fillStyle = "rgba(211, 107, 0, 0.02)";
+        this.context.fill();
+        this.context.restore();
+
         //保存之前的画布内容
         this.context.save();
         //重置0,0坐标点
@@ -303,15 +338,16 @@
         //画星球
         this.context.beginPath();
         //context.arc(x,y,r,sAngle,eAngle,counterclockwise);
-        this.context.arc(this.x, this.w*2, this.w  ,0, 360, false);
-        this.context.closePath();
-        this.changeShadow();
+        //this.context.arc(this.x, this.w*2, this.w  ,0, 360, false);
+        //this.context.closePath();
+        //this.changeShadow();
         //添加阴影
-        this.context.shadowBlur =  this.shadow;
-        this.context.shadowColor = "#E67E22";
+        //this.context.shadowBlur =  this.shadow;
+        //this.context.shadowColor = "#E67E22";
         //设置星球的填充颜色
         //新建渐变对象
         //context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+        /*
         this.context.color = this.context.createRadialGradient(this.x,this.y,0,this.x,this.y, this.w);
         //设置渐变效果
         this.context.color.addColorStop(0,"#D35400");//渐变开始点和颜色
@@ -319,21 +355,33 @@
         this.context.fillStyle = this.context.color;//将渐变对象复制给填充画笔
         //填充星球
         this.context.fill();
+        */
+        //debugger;
+        //画太阳
+        this.context.globalCompositeOperation = "lighter";
+        this.context.translate(this.x, this.w+20);
+        //设置旋转角度 ，角度转换为弧度角;
+        //degrees*Math.PI/180
+        this.context.rotate(this.time*Math.PI/180);
+        this.context.translate(-(this.x), -(this.w-20));
+        this.context.drawImage(this.img, this.x-100,this.w-50, 200, 200);
         //恢复之前保存的画布内容
         this.context.restore();
+        //this.context.globalCompositeOperation = "destination-over";
+
     };
     var Enemy = function(opt) {
         this.canvas = opt.canvas || {};
         this.context = this.canvas&&this.canvas.getContext("2d") || opt.context || {};
         this.h = opt.w || Math.floor( Math.random()*40 );
         this.w = opt.h || this.h;
+        this.img = opt.img || "";
         this.x = opt.x || Math.floor( Math.random()*this.canvas.width );
         this.y = opt.y || this.canvas.height;
 
         this.tween = (function() {
-            return Tween.Linear;
             var tween = Tween[ ["Cubic" , "Quart", "Quint", "Sine", "Expo", "Bounce" , "Back", "Elastic", "Circ", "Linear", "Quad"][ Math.floor(Math.random()*11) ] ]
-            return tween [ ["easeInOut","easeIn","easeOut"][ Math.floor(Math.random()*3) ] ];
+            return typeof tween === "function" ? tween : tween [ ["easeInOut","easeIn","easeOut"][ Math.floor(Math.random()*3) ] ];
         })();
 
         this.middle = this.canvas.width/2;
@@ -341,37 +389,40 @@
         this.distanceX = this.middle;
         this.initX = this.x;
         this.initY = this.y;
-        this.shape = ["rect", "arc"][Math.floor( Math.random()*2 )];
+        //this.shape = ["rect", "arc"][Math.floor( Math.random()*2 )];
         this.targetY =  100;
         this.time = (new Date).valueOf();
+        this.durationTime = 20000
     };
     Enemy.prototype = new Shadow();
     Enemy.prototype.run = function () {
 
     };
     Enemy.prototype.draw = function () {
-        if( (new Date).valueOf()-this.time >8000) {
+        if( (new Date).valueOf()-this.time >this.durationTime) {
             this.x=this.middle;
         }else if(this.x<this.middle) {
-            this.x = this.initX + this.tween((new Date).valueOf() - this.time, 0, this.distanceX - this.initX, 8000);
+            this.x = this.initX + this.tween((new Date).valueOf() - this.time, 0, this.distanceX - this.initX, this.durationTime);
         }else if(this.x>this.middle) {
-            this.x = this.initX - this.tween((new Date).valueOf()-this.time,0 ,this.initX - this.distanceX , 8000);
+            this.x = this.initX - this.tween((new Date).valueOf()-this.time,0 ,this.initX - this.distanceX , this.durationTime);
         };
-        if( (new Date).valueOf()-this.time >8000) {
+        if( (new Date).valueOf()-this.time >this.durationTime) {
             this.y = this.targetY;
         }else{
-            this.y = this.initY - this.tween((new Date).valueOf()-this.time,0 ,this.initY - this.targetY , 8000);
+            this.y = this.initY - this.tween((new Date).valueOf()-this.time,0 ,this.initY - this.targetY , this.durationTime);
         };
         this.context.save();
-        this.context.beginPath();
+        //this.context.beginPath();
         //context.arc(x,y,r,sAngle,eAngle,counterclockwise);
-        this.context.arc(this.x, this.y, this.w  ,0, 360, false);
-        this.context.closePath();
-        this.changeShadow();
+        //this.context.arc(this.x, this.y, this.w  ,0, 360, false);
+        //this.context.closePath();
+        //this.changeShadow();
         //添加阴影
-        this.context.shadowBlur =  this.shadow;
-        this.context.shadowColor = "#2C3E50";
-        this.context.fillStyle = "#34495E";
+        //this.context.shadowBlur =  this.shadow;
+        //this.context.shadowColor = "#2C3E50";
+        //this.context.fillStyle = "#34495E";
+        this.context.globalCompositeOperation = "lighter";
+        this.context.drawImage(this.img,this.x,this.y, this.w, this.w);
         this.context.fill();
         this.context.restore();
         if(this.y < -this.h) {
@@ -381,36 +432,52 @@
             this.draw = en.draw;
         }
     };
+    //时间模块
+    var Time = function() {};
+    //背景模块;
+    var Background = function(opt) {
+        this.canvas = opt.canvas || {};
+        this.context = this.canvas&&this.canvas.getContext("2d") || opt.context || {};
+        this.time = 0;
+        this.img = opt.img;
+    };
+    Background.prototype.draw = function() {
+        this.time++;
+        this.context.drawImage(this.img ,0 , 0 , this.canvas.width, this.canvas.height );
+    };
 
     var taskList = new TaskList();
 
     $(function () {
-        canvas.width = document.documentElement.clientWidth;
-        canvas.height = document.documentElement.clientHeight;
-        var ev = new Ev({canvas : canvas});
-        var air = new Air({canvas : canvas});
-        var star = new Star({canvas : canvas, w : 40});
-        var ens = new Array(10);
-        for(var i=0 ;i < ens.length; i++ ) {
-            ens[i] = new Enemy({canvas : canvas});
-        };
-        taskList.addTask(function() {
-            context.clearRect(0,0, canvas.width, canvas.height);
-        }).addTask( ev.draw.bind(ev) ).addTask( air.draw.bind(air) ).addTask( star.draw.bind(star) ).addTask(function() {
-            var len = ens.length;
-            while(len--) {
-                ens[len].draw.bind(ens[len])();
+        var imgs = util.loadImgs(["./imgs/h-glaxy.png", "imgs/sun.jpg","imgs/planet0.jpg","imgs/planet1.jpg","imgs/planet2.jpg","imgs/mars.png","imgs/Mercury.png","imgs/Neptune.png","imgs/Uranu.png","imgs/Venus.png"], function( imgs ) {
+
+            canvas.width = document.documentElement.clientWidth;
+            canvas.height = document.documentElement.clientHeight;
+            var ev = new Ev({canvas : canvas});
+            var air = new Air({canvas : canvas});
+            var star = new Star({canvas : canvas, w : 40, img : imgs["imgs/sun.jpg"]});
+            var background = new Background({canvas : canvas, img : imgs["./imgs/h-glaxy.png"]});
+            var ens = new Array(10);
+            function createEns (ens) {;
+                for(var i=0 ;i < ens.length; i++ ) {
+                    var img = ["imgs/planet0.jpg","imgs/planet1.jpg","imgs/planet2.jpg","imgs/mars.png","imgs/Mercury.png","imgs/Neptune.png","imgs/Uranu.png","imgs/Venus.png"][Math.floor(Math.random()*8)];
+                    ens[i] = new Enemy({canvas : canvas, img : imgs[img]});
+                };
+                setTimeout( function() {
+                    createEns(ens);
+                }, 20000)
             };
-        }).setInterval(30);
-/*
-        taskList.addTask(function() {
-            context.clearRect(0,0, canvas.width, canvas.height);
-        }).addTask(function() {
-            var len = ens.length;
-            while(len--) {
-                ens[len].draw.bind(ens[len])();
-            };
-        }).setInterval(30);*/
+            createEns(ens);
+            taskList.addTask(function() {
+                context.clearRect(0,0, canvas.width, canvas.height);
+            }).addTask( background.draw.bind(background) ).addTask( ev.draw.bind(ev) ).addTask( air.draw.bind(air) ).addTask( star.draw.bind(star) ).addTask(function() {
+                var len = ens.length;
+                while(len--) {
+                    ens[len].draw.bind(ens[len])();
+                };
+            }).setInterval(30);
+
+        });
     })
 </script>
 </body>

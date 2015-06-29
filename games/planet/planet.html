@@ -227,19 +227,82 @@
     canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
-    var Ev = function( opt ) {
-        this.canvas = opt.canvas || {};
-        this.context = this.canvas&&this.canvas.getContext("2d") || opt.context || {};
-    };
-    Ev.prototype.draw = function() {
-        /*
-        this.context.beginPath();
-        this.context.fillStyle = "#f5f5f5";
-        this.context.rect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.fill();
-        */
-    };
+    var Ev = function( p ) {
+        p=p||{};
+        this.canvas = p.canvas || {};
+        this.context = this.canvas&&this.canvas.getContext("2d") || p.context || {};
+        var w_w=p&&p.window_width?p.window_width:"500";
+        var w_h=p&&p.window_height?p.window_height:"400";
+        var s_c=p&&p.star_count?p.star_count:"600";
+        var s_color=p&&p.star_color?p.star_color:"#FFF";
+        var s_d=p&&p.star_depth?p.star_depth:"250";
+        var dom=$(this.canvas);
+        var fov = parseInt(s_d);
+        var SCREEN_WIDTH = parseInt(w_w);
+        var SCREEN_HEIGHT = parseInt(w_h);
+        var HALF_WIDTH = SCREEN_WIDTH/2;
+        var HALF_HEIGHT = SCREEN_HEIGHT/2;
+        var c_id = dom.attr("id");
+        var numPoints = s_c;
 
+        function draw3Din2D(point3d)
+        {
+            x3d = point3d[0];
+            y3d = point3d[1];
+            z3d = point3d[2];
+            //scale就是
+            // z3d 在 -100 到 +300 之间;
+            var scale = fov/(fov+z3d);
+            var x2d = (x3d * scale) + HALF_WIDTH;
+            var y2d = (y3d * scale)  + HALF_HEIGHT;
+
+            c.lineCap = "round";
+            c.lineWidth= scale;
+            c.strokeStyle = s_color;
+            c.beginPath();
+            c.moveTo(x2d,y2d);
+            c.lineTo(x2d+1, y2d);
+            c.stroke();
+
+        }
+
+        var canvas = document.getElementById(c_id);
+        var c = canvas.getContext('2d');
+
+        var points = [];
+
+        function initPoints()
+        {
+            var width = dom.attr("width");
+            for (i=0; i<numPoints; i++)
+            {
+                point = [(Math.random()*width)-width/2, (Math.random()*width)-width/2 , (Math.random()*width)-width/2 ];
+                points.push(point);
+            }
+
+        }
+
+        function render()
+        {
+            for (i=0; i<numPoints; i++)
+            {
+                point3d = points[i];
+
+                z3d = point3d[2];
+                z3d-=4;
+                if(z3d<-fov) z3d +=400;
+                point3d[2] = z3d;
+
+
+                draw3Din2D(point3d);
+
+            };
+
+        };
+
+        initPoints();
+        return render;
+    };
     //为行星添加改变阴影的方法, 用来继承;
     var Shadow = function() {
         this.shadow = 1;
@@ -359,16 +422,15 @@
         //debugger;
         //画太阳
         this.context.globalCompositeOperation = "lighter";
-        this.context.translate(this.x, this.w+20);
+        this.context.translate(this.x, this.w + 20);
         //设置旋转角度 ，角度转换为弧度角;
         //degrees*Math.PI/180
         this.context.rotate(this.time*Math.PI/180);
         this.context.translate(-(this.x), -(this.w-20));
-        this.context.drawImage(this.img, this.x-100,this.w-50, 200, 200);
+        this.context.drawImage(this.img, this.x-100,this.w-100, 200, 200);
         //恢复之前保存的画布内容
         this.context.restore();
         //this.context.globalCompositeOperation = "destination-over";
-
     };
     var Enemy = function(opt) {
         this.canvas = opt.canvas || {};
@@ -453,15 +515,23 @@
 
             canvas.width = document.documentElement.clientWidth;
             canvas.height = document.documentElement.clientHeight;
-            var ev = new Ev({canvas : canvas});
+            var ev = new Ev({
+                canvas : canvas,
+                window_width: canvas.width,
+                window_height: '400',
+                window_background: '#00113F',
+                star_count: '1000',
+                star_color: '#fff',
+                star_depth: '100'
+            });
             var air = new Air({canvas : canvas});
             var star = new Star({canvas : canvas, w : 40, img : imgs["imgs/sun.jpg"]});
             var background = new Background({canvas : canvas, img : imgs["./imgs/h-glaxy.png"]});
-            var ens = new Array(10);
+            var ens = new Array();
             function createEns (ens) {;
-                for(var i=0 ;i < ens.length; i++ ) {
+                for(var i=0 ;i < 10; i++ ) {
                     var img = ["imgs/planet0.jpg","imgs/planet1.jpg","imgs/planet2.jpg","imgs/mars.png","imgs/Mercury.png","imgs/Neptune.png","imgs/Uranu.png","imgs/Venus.png"][Math.floor(Math.random()*8)];
-                    ens[i] = new Enemy({canvas : canvas, img : imgs[img]});
+                    ens.push( new Enemy({canvas : canvas, img : imgs[img]}) );
                 };
                 setTimeout( function() {
                     createEns(ens);
@@ -470,7 +540,7 @@
             createEns(ens);
             taskList.addTask(function() {
                 context.clearRect(0,0, canvas.width, canvas.height);
-            }).addTask( background.draw.bind(background) ).addTask( ev.draw.bind(ev) ).addTask( air.draw.bind(air) ).addTask( star.draw.bind(star) ).addTask(function() {
+            }).addTask( background.draw.bind(background) ).addTask( ev.bind(ev) ).addTask( air.draw.bind(air) ).addTask( star.draw.bind(star) ).addTask(function() {
                 var len = ens.length;
                 while(len--) {
                     ens[len].draw.bind(ens[len])();

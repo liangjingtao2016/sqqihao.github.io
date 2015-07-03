@@ -8,9 +8,12 @@
     <script src="zepto.js"></script>
     <script src="http://cdn.bootcss.com/underscore.js/1.8.3/underscore.js"></script>
     <style>
+        body{
+            margin:0;
+        }
         #content{
             position: relative;
-            margin-top:40px;
+            margin:40px auto;
         }
         canvas{
             border:1px solid #f0f0f0;
@@ -42,7 +45,9 @@
     })(function($) {
         //这个canvas是缓冲图片用的;
         var canvas = document.createElement("canvas");
-
+        canvas.width = document.documentElement.clientWidth/2;
+        canvas.height = document.documentElement.clientWidth/2;
+        document.getElementById("content").style.width =  document.documentElement.clientWidth/2 + "px";
         //保存了所有的block;
         var blocks = [];
 
@@ -62,9 +67,9 @@
                 };
 
                 img.onload = function() {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    canvas.getContext("2d").drawImage( img, 0, 0);
+                    //canvas.width = img.width;
+                    //canvas.height = img.height;
+                    canvas.getContext("2d").drawImage( img, 0, 0 ,canvas.width, canvas.height);
                     //document.body.appendChild( canvas );
                     //document.getElementById("content").appendChild( canvas );
                     fn&&fn();
@@ -377,7 +382,7 @@
                         break;
                 };
                 run( clipImage, name );
-
+                ev.preventDefault();
             });
 
             $(document).swipeLeft(function() {

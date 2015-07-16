@@ -1,0 +1,87 @@
+define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function(Plane, EMissile, Sprite) {
+
+    /**
+     * @desc 敌人飞机模型;
+     * */
+    var Enemy = P(Plane, function ( enemy, plane ) {
+
+        enemy.init = function ( opt ) {
+
+            var _this = this;
+            plane.init.apply(this, arguments);
+            this.opt = opt || {};
+            this.canvas = opt.canvas;
+            this.context = opt.context;
+            this.task = opt.task;
+            this.EMissile = opt.EMissile || EMissile;
+            this.eMissileBg = opt.eMissileBg || window.gb.imgs["app/imgs/enemybullet1.png"];
+            this.eMissileW = opt.eMissileW || 8;
+            this.eMissileH = opt.eMissileH || 8;
+            this.eMissileSpeedX = opt.eMissileSpeedX || 0;
+            this.eMissileSpeedY = opt.eMissileSpeedY || 3;
+            this.eMissileDamage = opt.eMissileDamage || 1;
+            this.bg = opt.bg || window.gb.imgs["app/imgs/enmey0.png"];
+            this.money = opt.money || 1;
+            this.task = opt.task;
+            this.x = opt.x || 0;
+            this.y = opt.y || 0;
+            this.speedX = opt.speedX || 1;
+            this.speedY = opt.speedY || 1;
+            this.w = opt.w || 40;
+            this.h = opt.h || 40;
+            this.blood = opt.blood || 2;
+            this.speed = opt.speed || 2;
+            this.sprite = new Sprite("testData", 20, 500);
+            var destroyEnemy = function() {
+                _this.setup();
+                _this.draw();
+                if(_this.x<-_this.w||_this.x>_this.canvas.width||_this.y<-_this.h||_this.y>_this.canvas.height) {
+                    _this.task.removeTask( arguments.callee );
+                };
+            };
+            this.task.addTask( destroyEnemy );
+            this.remove = function() {
+                _this.task.removeTask( destroyEnemy );
+            }
+        };
+
+        enemy.setup = function () {
+            var _this = this;
+            this.x += this.speedX;
+            this.y += this.speedY;
+            //canvas, context, bg, x, y, w ,h , info
+            //info { speedX, speedY, damage}
+            if( this.sprite.calc().now==4 ) {
+                var eMissile = new this.EMissile(this.canvas, this.context, this.eMissileBg , this.x, this.y, this.eMissileW, this.eMissileH, {
+                    speedX : this.eMissileSpeedX,
+                    speedY : this.eMissileSpeedY,
+                    damage : this.eMissileDamage,
+                    task : this.task
+                });
+                var eMTask = function () {
+                    eMissile.setup();
+                    eMissile.draw();
+                    if( eMissile.outOfArea() ) {
+                        eMissile.destory();
+                        //从task列表删除该函数;
+                        _this.task.removeTask( arguments.callee );
+                    };
+                };
+                eMissile.remove = function() {
+                    _this.task.removeTask( eMTask );
+                };
+                _this.task.addTask( eMTask );
+            };
+
+        };
+
+        enemy.draw = function () {
+
+            this.context.drawImage(this.bg, this.x, this.y ,this.w, this.h);
+
+        };
+
+    });
+
+    return Enemy;
+})

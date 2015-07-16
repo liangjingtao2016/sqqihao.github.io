@@ -35,13 +35,20 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
              true ,true, true, true ,true ,true ,true ,true,
              false ,false, false, false ,false ,false ,false ,false,
              true
-             ];*/
+             ];*//*
                 [
                     false ,false, false, false ,false ,false ,false ,false,
                     true ,true, true, true ,true ,true ,true ,true,
                     true,true,
                     true
-                ];
+                ];.
+             */
+             [
+             false ,false, false, false ,false ,false ,false ,false,
+                 false ,false, false, false ,false ,false ,false ,false,
+             true,true,
+             true
+             ];
             this.equits = [
                 {
                     bg : "app/imgs/mybullet1.png",

@@ -73,8 +73,8 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
 require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/levels"],
-    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, levels) {
+        "app/C/loadGImgsModule", "app/Model/Levels"],
+    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels) {
 
     /**
      * @desc 用户控制层；
@@ -93,12 +93,8 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
 
     });
 
-    var Level = P(EventBase, function ( level ) {
-
-    });
-
-    var canvas = document.getElementsByTagName("canvas")[0];
-    var context = canvas.getContext("2d");
+    window.canvas = document.getElementsByTagName("canvas")[0];
+    window.context = canvas.getContext("2d");
     var sound = new GT.Sound({
         id: "sfx-1",
         src: "./app/audio/music.mp4",
@@ -115,7 +111,7 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
     function g( level ) {
 
         //生成关卡数据;
-        var LEVELS = levels( canvas );
+        var LEVELS = Levels( canvas );
 
         level = level || 0;
         var now = Date.now();

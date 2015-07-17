@@ -60,6 +60,10 @@ define(["app/C/Sprite"], function( Sprite ) {
             });
         };
 
+        plane.addScore = function() {
+            console.log( "addScore!" );
+        };
+
     });
 
     return Plane;

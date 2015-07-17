@@ -3,7 +3,7 @@ define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
     var explodeEffect = new GT.Sound({
         id: "explodeEffect-2",
         src: "./app/audio/explodeEffect.mp3",
-        loop: true,
+        loop: false,
         volume: 1,
         tag: "explodeEffect",
         channel: 2
@@ -51,7 +51,8 @@ define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
             }
         };
 
-    })
+    });
+
     /**
      * @desc 继承了Missile，让子弹更牛逼;
      * */

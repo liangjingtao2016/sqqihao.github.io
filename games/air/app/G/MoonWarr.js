@@ -43,12 +43,16 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     true
                 ];.
              */
-             [
-             false ,false, false, false ,false ,false ,false ,false,
+
+                /*[
+             true ,true, false, false ,false ,false ,false ,false,
                  false ,false, false, false ,false ,false ,false ,false,
-             true,true,
-             true
+             false,false,
+             false
              ];
+            */
+            [true,true]
+            ;
             this.equits = [
                 {
                     bg : "app/imgs/mybullet1.png",
@@ -445,9 +449,11 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 if( _this.x<0 ) _this.x = 0;
                 if( _this.x< dixX) _this.x = dixX;
 
-            }, function ( disY, objY ) {
+            }, function ( disY, objY , disX) {
 
-                _this.y-=_this.speed;
+                var speed = Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
+                if( isNaN(speed) ) speed = _this.speed;
+                _this.y-=speed;
                 if( _this.y<0 ) _this.y=0;
                 if( _this.y<disY)_this.y=disY;
 
@@ -457,9 +463,11 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 if( _this.x>canvas.width-_this.width) _this.x = canvas.width-_this.width;
                 if( _this.x>dixX ) _this.x = dixX;
 
-            }, function ( disY, objY ) {
+            }, function ( disY, objY , disX) {
 
-                _this.y+=_this.speed;
+                var speed =  Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
+                if( isNaN(speed) ) speed = _this.speed;
+                _this.y+=speed;
                 if( _this.y>canvas.height - _this.height ) _this.y = canvas.height - _this.height;
                 if( _this.y>disY)_this.y=disY;
 

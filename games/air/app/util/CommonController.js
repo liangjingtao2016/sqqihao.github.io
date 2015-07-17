@@ -88,9 +88,9 @@ define(function() {
             if( Math.abs(disY-obj.y)>obj.dis ){
                 //如果当前的Y大于物体的y轴, 就像下走;
                 if(disY > obj.y ) {
-                    fns.push( bottomFn.bind(bottomFn,disY,obj.y) );
+                    fns.push( bottomFn.bind(bottomFn,disY,obj.y, disX) );
                 }else{
-                    fns.push( upFn.bind(bottomFn,disY,obj.y) );
+                    fns.push( upFn.bind(bottomFn,disY,obj.y, disX) );
                 };
             };
             _this.timer = setInterval(function() {

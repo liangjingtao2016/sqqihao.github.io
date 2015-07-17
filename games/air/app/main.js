@@ -13,9 +13,13 @@ window.gb = window.gb || {
         "app/imgs/flash.png", "app/imgs/life.png", "app/imgs/money.png", "app/imgs/power.png",
         "app/imgs/mybullet1.png", "app/imgs/mybullet2.png", "app/imgs/mybullet3.png",
         "app/imgs/enemy0.png","app/imgs/enemy1.png","app/imgs/enemy2.png","app/imgs/enemy3.png","app/imgs/enemy4.png","app/imgs/enemy5.png",
-        "app/imgs/enemybullet1.png","app/imgs/enemybullet.png",
+        "app/imgs/enemy6.png","app/imgs/enemy7.png","app/imgs/enemy8.png","app/imgs/enemy9.png",
+        "app/imgs/enemybullet1.png","app/imgs/enemybullet.png","app/imgs/blastz1.png","app/imgs/blastz2.png","app/imgs/blastz3.png","app/imgs/blastz4.png","app/imgs/blastz5.png","app/imgs/blastz6.png",
         "app/imgs/hole.png",
-        "app/imgs/explosion0.png","app/imgs/explosion1.png","app/imgs/explosion2.png","app/imgs/explosion3.png","app/imgs/explosion4.png"],
+        "app/imgs/explosion0.png","app/imgs/explosion1.png","app/imgs/explosion2.png","app/imgs/explosion3.png","app/imgs/explosion4.png",
+        "app/imgs/diamons/d0.png", "app/imgs/diamons/d1.png", "app/imgs/diamons/d2.png", "app/imgs/diamons/d3.png", "app/imgs/diamons/d4.png",
+        "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png"
+    ],
 
 
     //当用户选择的信息， 这要初始化用户的生命值， 声明条数， 速度， 分数， 金钱数等信息;
@@ -73,8 +77,8 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
 require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/Levels"],
-    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels) {
+        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon"],
+    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon) {
 
     /**
      * @desc 用户控制层；
@@ -126,22 +130,24 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
 
         moonWarr.flash();
         window.moonWarr = moonWarr;
-        var info = new Info( canvas,context );
+        var info = new Info( canvas, context );
         task.plane( moonWarr );
         moonWarr.drawDashLine();
+        //test
+
         task.addTask( function() {
-            util.clear(canvas);
+           util.clear(canvas);
         }).addTask(function() {
-            bg.setup();
-            bg.draw();
+           bg.setup();
+           bg.draw();
         }).addTask(function () {
-            info.setup( window.gb.userData );
+           info.setup( window.gb.userData );
         }).addTask(function() {
-            info.draw.bind( info )();
+           info.draw.bind( info )();
         }).addTask(function() {
             moonWarr.setup.bind(moonWarr)();
         }).addTask(function () {
-            moonWarr.draw.bind(moonWarr)();
+           moonWarr.draw.bind(moonWarr)();
         }).addTask(function() {
             var times = Date.now() - now;
             var timeLine =  (times+"").replace(/\d{3,3}$/,"000");

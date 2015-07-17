@@ -1,4 +1,4 @@
-define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function(Plane, EMissile, Sprite) {
+define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G/Power"], function(Plane, EMissile, Sprite, Diamon, Power) {
 
     /**
      * @desc 敌人飞机模型;
@@ -32,16 +32,47 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function(Plane, EMissi
             this.blood = opt.blood || 2;
             this.speed = opt.speed || 2;
             this.sprite = new Sprite("testData", 20, 500);
-            var destroyEnemy = function() {
+            var taskFn = function() {
                 _this.setup();
                 _this.draw();
                 if(_this.x<-_this.w||_this.x>_this.canvas.width||_this.y<-_this.h||_this.y>_this.canvas.height) {
                     _this.task.removeTask( arguments.callee );
                 };
             };
-            this.task.addTask( destroyEnemy );
+
+            this.task.addTask( taskFn );
             this.remove = function() {
-                _this.task.removeTask( destroyEnemy );
+
+                if( _.random(0,10)>4 ) {
+
+                    var diamon = new Diamon({
+                        task : _this.task,
+                        canvas : _this.canvas,
+                        context : _this.context,
+                        x : _this.x,
+                        y : _this.y,
+                        w : 20,
+                        h : 20,
+                        speedX : _this.speedX/2,
+                        speedY : _this.speedY/2
+                    });
+
+                };
+
+                if( _.random(0,10)>0 ) {
+
+                    new Power({
+                        task : _this.task,
+                        canvas : _this.canvas,
+                        context : _this.context,
+                        x : _this.x,
+                        y : _this.y,
+                        speedX : _this.speedX/2,
+                        speedY : _this.speedY/2
+                    });
+                };
+
+                _this.task.removeTask( taskFn );
             }
         };
 

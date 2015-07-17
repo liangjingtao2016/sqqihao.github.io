@@ -3,7 +3,7 @@ define(["app/C/Sprite"], function ( Sprite ) {
     var explodeEffect = new GT.Sound({
         id: "explodeEffect-2",
         src: "./app/audio/explodeEffect.mp3",
-        loop: true,
+        loop: false,
         volume: 1,
         tag: "explodeEffect",
         channel: 2

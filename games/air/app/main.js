@@ -77,146 +77,147 @@ window.gb = window.gb || {
 
 };
 
-require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/requestAnimationFrame" ]);
+require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/requestAnimationFrame" ], function() {
 
-require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
-        "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon"],
-    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon) {
+    require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
+            "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
+            "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon"],
+        function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon) {
 
-    /**
-     * @desc 用户控制层；
-     * @desc 选择关卡层， 查看帮助层， 游戏设置层， 设置背景音乐；
-     * */
-    var Con0 = P(EventBase, function ( con0 ) {
+            /**
+             * @desc 用户控制层；
+             * @desc 选择关卡层， 查看帮助层， 游戏设置层， 设置背景音乐；
+             * */
+            var Con0 = P(EventBase, function ( con0 ) {
 
-    });
+            });
 
-    /**
-     * @desc 主界面控制层上下左右，wasd， missile是持续放的;
-     * @desc 草鸡misille的控制层；
-     * @desc 游戏暂停；
-     * */
-    var Con1 = P(EventBase, function ( con1 ) {
+            /**
+             * @desc 主界面控制层上下左右，wasd， missile是持续放的;
+             * @desc 草鸡misille的控制层；
+             * @desc 游戏暂停；
+             * */
+            var Con1 = P(EventBase, function ( con1 ) {
 
-    });
+            });
 
-    window.canvas = document.getElementsByTagName("canvas")[0];
-    window.context = canvas.getContext("2d");
-    var sound = new GT.Sound({
-        id: "sfx-1",
-        src: "./app/audio/music.mp4",
-        loop: true,
-        volume: 1,
-        tag: "sfx",
-        channel: 2
-    });
-    sound.load();
-    sound.onLoad = function(){
-        this.play();
-    };
-
-    function g( level ) {
-
-        //生成关卡数据;
-        var LEVELS = Levels( canvas );
-
-        level = level || 0;
-        var now = Date.now();
-        var task = new TaskList();
-        var moonWarr = new MoonWarr({
-            bg : window.gb.imgs[window.gb.userData.bg],
-            canvas : canvas,
-            context : canvas.getContext('2d'),
-            task  : task
-        });
-        var bg = new Bg(canvas, canvas.getContext('2d'), 1);
-
-        moonWarr.flash();
-        window.moonWarr = moonWarr;
-        var info = new Info( canvas, context );
-        task.plane( moonWarr );
-        moonWarr.drawDashLine();
-        //test
-
-        task.addTask( function() {
-           util.clear(canvas);
-        }).addTask(function() {
-           bg.setup();
-           bg.draw();
-        }).addTask(function () {
-            window.gb.userData.money = moonWarr.money;
-            window.gb.userData.blood = moonWarr.blood;
-            window.gb.userData.lifes = moonWarr.lifes;
-            //绘制用户信息;
-           info.setup( window.gb.userData );
-        }).addTask(function() {
-           info.draw.bind( info )();
-        }).addTask(function() {
-            moonWarr.setup.bind(moonWarr)();
-        }).addTask(function () {
-           moonWarr.draw.bind(moonWarr)();
-        }).addTask(function() {
-            var times = Date.now() - now;
-            var timeLine =  (times+"").replace(/\d{3,3}$/,"000");
-            var enemys = LEVELS[ level ] [ timeLine ];
-            if( enemys ) {
-                for(var i=0; i< enemys.length; i++ ) {
-                    var enemyObj = enemys[i];
-
-                    //根据数据信息实例化生成敌机数据;
-                    enemyObj[1].task = task;
-                    var enemy =new enemyObj[0]( enemyObj[1] );
-
-                    //把敌机的数据保存到task的缓存里面;
-                    task.addEnemy( enemy );
-                };
-                delete LEVELS[ level ] [ timeLine ];
+            window.canvas = document.getElementsByTagName("canvas")[0];
+            window.context = canvas.getContext("2d");
+            var sound = new GT.Sound({
+                id: "sfx-1",
+                src: "./app/audio/music.mp4",
+                loop: true,
+                volume: 1,
+                tag: "sfx",
+                channel: 2
+            });
+            sound.load();
+            sound.onLoad = function(){
+                this.play();
             };
+
+            function g( level ) {
+
+                //生成关卡数据;
+                var LEVELS = Levels( canvas );
+
+                level = level || 0;
+                var now = Date.now();
+                var task = new TaskList();
+                var moonWarr = new MoonWarr({
+                    bg : window.gb.imgs[window.gb.userData.bg],
+                    canvas : canvas,
+                    context : canvas.getContext('2d'),
+                    task  : task
+                });
+                var bg = new Bg(canvas, canvas.getContext('2d'), 1);
+
+                moonWarr.flash();
+                window.moonWarr = moonWarr;
+                var info = new Info( canvas, context );
+                task.plane( moonWarr );
+                moonWarr.drawDashLine();
+                //test
+
+                task.addTask( function() {
+                    util.clear(canvas);
+                }).addTask(function() {
+                    bg.setup();
+                    bg.draw();
+                }).addTask(function () {
+                    window.gb.userData.money = moonWarr.money;
+                    window.gb.userData.blood = moonWarr.blood;
+                    window.gb.userData.lifes = moonWarr.lifes;
+                    //绘制用户信息;
+                    info.setup( window.gb.userData );
+                }).addTask(function() {
+                    info.draw.bind( info )();
+                }).addTask(function() {
+                    moonWarr.setup.bind(moonWarr)();
+                }).addTask(function () {
+                    moonWarr.draw.bind(moonWarr)();
+                }).addTask(function() {
+                    var times = Date.now() - now;
+                    var timeLine =  (times+"").replace(/\d{3,3}$/,"000");
+                    var enemys = LEVELS[ level ] [ timeLine ];
+                    if( enemys ) {
+                        for(var i=0; i< enemys.length; i++ ) {
+                            var enemyObj = enemys[i];
+
+                            //根据数据信息实例化生成敌机数据;
+                            enemyObj[1].task = task;
+                            var enemy =new enemyObj[0]( enemyObj[1] );
+
+                            //把敌机的数据保存到task的缓存里面;
+                            task.addEnemy( enemy );
+                        };
+                        delete LEVELS[ level ] [ timeLine ];
+                    };
+                    /*
+                     enemy.setup();
+                     enemy.draw();*/
+                }).setInterval(30);
+
+                /*
+                 var enemy = new Enemy({
+                 canvas : canvas,
+                 context : canvas.getContext('2d'),
+                 task : task
+                 });
+                 */
+
+            };
+
+            window.gb.start = function() {
+                console.log(window.gb.userData);
+                //跳过去了;
+                g();
+            };
+
+            loadGImgsModule(canvas, context ,function () {
+
+                var test = false;
+                if( test ) {
+                    g();
+                }else{
+                    window.pages = new Pages();
+                    pages.add( new gPages.StartPage( canvas ) );
+                    pages.start();
+                };
+
+            });
+
+            /*var ev = new MouseEvent("click",{
+             bubbles: true,
+             cancelable: true,
+             view: window,
+             pageX : 205,
+             pageY : 190
+             });*/
             /*
-            enemy.setup();
-            enemy.draw();*/
-        }).setInterval(30);
-
-    /*
-        var enemy = new Enemy({
-            canvas : canvas,
-            context : canvas.getContext('2d'),
-            task : task
+             var ev = document.createEvent();
+             ev.initEvent("click", true, false);
+             canvas.dispatchEvent(ev);
+             */
         });
-    */
-
-    };
-
-    window.gb.start = function() {
-        console.log(window.gb.userData);
-        //跳过去了;
-        g();
-    };
-
-    loadGImgsModule(canvas, context ,function () {
-
-        var test = false;
-        if( test ) {
-            g();
-        }else{
-            window.pages = new Pages();
-            pages.add( new gPages.StartPage( canvas ) );
-            pages.start();
-        };
-
-    });
-
-/*var ev = new MouseEvent("click",{
-    bubbles: true,
-    cancelable: true,
-    view: window,
-    pageX : 205,
-    pageY : 190
-});*/
-/*
-var ev = document.createEvent();
-ev.initEvent("click", true, false);
-canvas.dispatchEvent(ev);
-*/
 });

@@ -40,6 +40,7 @@ define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
                     bottom : plane.y+plane.height
                 }
             )) {
+                plane.blood--;
                 //if( (plane.blood--)===0 ) {
                 plane.destory&&plane.destory();
                 plane.remove&&plane.remove();

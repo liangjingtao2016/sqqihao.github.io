@@ -59,6 +59,7 @@ define(["app/C/Sprite"], function ( Sprite ) {
                 )) {
                     //被一个子弹射中以后， 只要子弹不消失;还会被这个子弹射中
                     if( (enemys[i].blood--)===0 ) {
+                        window.gb.userData.score++;
                         enemys[i].remove&&enemys[i].remove();
                         enemys[i].destory&&enemys[i].destory();
                     };

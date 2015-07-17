@@ -9,15 +9,15 @@ define(["app/C/Page"], function ( Page ) {
         page.create = function () {
             var _this = this;
             //创建两个图片的按钮;
-            plant0 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/s.gif"], canvas.width/2-40, canvas.height/2 - 100 ,40, 80 ,function() {
+            plant0 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/plane8.png"], canvas.width/2-40, canvas.height/2 - 100 ,40, 80 ,function() {
                 _this.destory();
-                window.gb.initUserData("app/imgs/s.gif");
+                window.gb.initUserData("app/imgs/plane8.png");
                 window.gb.start();
             });
 
-            plant1 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/logo_aliyun.jpg"], canvas.width/2-40, canvas.height/2 ,40, 80 ,function() {
+            plant1 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/plane9.png"], canvas.width/2-40, canvas.height/2 ,40, 80 ,function() {
                 _this.destory();
-                window.gb.initUserData("app/imgs/logo_aliyun.jpg");
+                window.gb.initUserData("app/imgs/plane9.png");
                 window.gb.start();
             });
         };
@@ -69,6 +69,9 @@ define(["app/C/Page"], function ( Page ) {
                 pages.back();
             });
             context.fillText("Name page", canvas.width/2, 10);
+            context.fillText("author qihao", canvas.width/2, 30);
+            context.fillText("design qihao", canvas.width/2, 50);
+            context.fillText("music qihao", canvas.width/2, 70);
 
         };
 

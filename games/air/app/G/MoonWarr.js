@@ -7,7 +7,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
         var fireEffect = new GT.Sound({
             id: "sfx-2",
             src: "./app/audio/fireEffect.mp3",
-            loop: true,
+            loop: false,
             volume: 1,
             tag: "sfx",
             channel: 2
@@ -30,6 +30,11 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.width = 40;
             this.height = 40;
             this.dis = 50;
+
+            this.money = 0;
+            this.blood = 10;
+            this.lifes = 4;
+
             this.speed = opt.speed || 2;
             this.equitsFlag = /*[
              true ,true, true, true ,true ,true ,true ,true,
@@ -51,8 +56,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
              false
              ];
             */
-            [true,true]
-            ;
+            [true,true] ;
             this.equits = [
                 {
                     bg : "app/imgs/mybullet1.png",
@@ -245,7 +249,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     h : 30
                 }];
             this.bg = opt.bg;
-            sprite = new Sprite( this.bg , 3, 400);
+            sprite = new Sprite( this.bg , window.gb.userData.frames, 400);
             this.bindEv();
 
             //初始话子弹的发射, 300毫秒自动发射;

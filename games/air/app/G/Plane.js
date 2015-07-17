@@ -6,7 +6,7 @@ define(["app/C/Sprite"], function( Sprite ) {
         var shipDestroyEffect = new GT.Sound({
             id: "sfx-2",
             src: "./app/audio/shipDestroyEffect.mp3",
-            loop: true,
+            loop: false,
             volume: 1,
             tag: "sfx",
             channel: 2
@@ -61,7 +61,7 @@ define(["app/C/Sprite"], function( Sprite ) {
         };
 
         plane.addScore = function() {
-            console.log( "addScore!" );
+            this.money++;
         };
 
     });

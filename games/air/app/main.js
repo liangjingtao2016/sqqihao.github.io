@@ -8,7 +8,7 @@ var cfg = cfg || {
 window.gb = window.gb || {
 
     //所有的用户信息保存这里面
-    users : ["app/imgs/s.gif","app/imgs/logo_small.gif","app/imgs/logo_aliyun.jpg","app/imgs/plane8.png",
+    users : ["app/imgs/s.gif","app/imgs/logo_small.gif","app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
         "app/imgs/back_img.png","app/imgs/back_img1.png","app/imgs/back_img2.png",
         "app/imgs/flash.png", "app/imgs/life.png", "app/imgs/money.png", "app/imgs/power.png",
         "app/imgs/mybullet1.png", "app/imgs/mybullet2.png", "app/imgs/mybullet3.png",
@@ -28,23 +28,25 @@ window.gb = window.gb || {
         //重新值用户的值;
         gb.userData = {
 
-            "app/imgs/s.gif" : {
+            "app/imgs/plane8.png" : {
                 blood : 10,
                 lifes : 4,
                 speed : 1,
                 score : 0,
                 money : 0,
-                bg : "app/imgs/s.gif",
+                bg : "app/imgs/plane8.png",
+                frames : 2,
                 superBomb : 2
             },
 
-            "app/imgs/logo_small.gif" : {
+            "app/imgs/plane9.png" : {
                 blood : 10,
                 lifes : 4,
                 speed : 1,
                 score : 0,
                 money : 0,
-                bg : "app/imgs/logo_small.gif",
+                bg : "app/imgs/plane9.png",
+                frames : 0,
                 superBomb : 2
             },
 
@@ -53,6 +55,7 @@ window.gb = window.gb || {
                 lifes : 4,
                 speed : 1,
                 score : 0,
+                frames : 0,
                 money : 0,
                 bg :"app/imgs/logo_aliyun.jpg",
                 superBomb : 2
@@ -67,6 +70,7 @@ window.gb = window.gb || {
         lifes : 4,
         speed : 1,
         score : 0,
+        frames : 3,
         money : 0,
         bg : "app/imgs/plane8.png"
     }
@@ -141,6 +145,10 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
            bg.setup();
            bg.draw();
         }).addTask(function () {
+            window.gb.userData.money = moonWarr.money;
+            window.gb.userData.blood = moonWarr.blood;
+            window.gb.userData.lifes = moonWarr.lifes;
+            //绘制用户信息;
            info.setup( window.gb.userData );
         }).addTask(function() {
            info.draw.bind( info )();
@@ -188,7 +196,7 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
 
     loadGImgsModule(canvas, context ,function () {
 
-        var test = true;
+        var test = false;
         if( test ) {
             g();
         }else{

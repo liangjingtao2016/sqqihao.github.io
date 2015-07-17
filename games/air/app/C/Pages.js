@@ -1,4 +1,4 @@
-define( function() {
+define(["app/C/Page"] , function( Page ) {
 
     //=====>>>>数据模型开始
     /**

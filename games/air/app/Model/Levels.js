@@ -260,7 +260,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss"], function ( Enemy ,EMissi
             //
         };
         //第一关的boss要出现了;
-        LEVELS[0][ /*"201000"*/"1000" ] = [[Boss, {
+        LEVELS[0][ "201000" ] = [[Boss, {
             canvas : canvas,
             context : canvas.getContext('2d'),
             bg : window.gb.imgs["app/imgs/boss.png"],

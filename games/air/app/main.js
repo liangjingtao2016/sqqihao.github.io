@@ -18,7 +18,9 @@ window.gb = window.gb || {
         "app/imgs/hole.png",
         "app/imgs/explosion0.png","app/imgs/explosion1.png","app/imgs/explosion2.png","app/imgs/explosion3.png","app/imgs/explosion4.png",
         "app/imgs/diamons/d0.png", "app/imgs/diamons/d1.png", "app/imgs/diamons/d2.png", "app/imgs/diamons/d3.png", "app/imgs/diamons/d4.png",
-        "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png"
+        "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png",
+        "app/imgs/boss.png",
+        "app/imgs/bossbullet2.png"
     ],
 
 
@@ -116,12 +118,13 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
                 this.play();
             };
 
-            function g( level ) {
+            window.g = function ( level ) {
 
                 //生成关卡数据;
                 var LEVELS = Levels( canvas );
 
-                level = level || 0;
+                window.gb.level = level || 0;
+
                 var now = Date.now();
                 var task = new TaskList();
                 var moonWarr = new MoonWarr({
@@ -159,7 +162,7 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
                 }).addTask(function() {
                     var times = Date.now() - now;
                     var timeLine =  (times+"").replace(/\d{3,3}$/,"000");
-                    var enemys = LEVELS[ level ] [ timeLine ];
+                    var enemys = LEVELS[ window.gb.level ] [ timeLine ];
                     if( enemys ) {
                         for(var i=0; i< enemys.length; i++ ) {
                             var enemyObj = enemys[i];
@@ -171,7 +174,7 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
                             //把敌机的数据保存到task的缓存里面;
                             task.addEnemy( enemy );
                         };
-                        delete LEVELS[ level ] [ timeLine ];
+                        delete LEVELS[ window.gb.level ] [ timeLine ];
                     };
                     /*
                      enemy.setup();

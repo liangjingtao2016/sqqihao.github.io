@@ -36,8 +36,8 @@ define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
                 {
                     left : plane.x,
                     top : plane.y,
-                    right : plane.x+plane.width,
-                    bottom : plane.y+plane.height
+                    right : plane.x+plane.h,
+                    bottom : plane.y+plane.w
                 }
             )) {
                 plane.blood--;

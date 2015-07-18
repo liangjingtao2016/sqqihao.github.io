@@ -27,8 +27,8 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.y = opt.canvas.height-40;
             this.x = (opt.canvas.width-40)/2;
             this.canvas = opt.canvas;
-            this.width = 40;
-            this.height = 40;
+            this.w = 40;
+            this.h = 40;
             this.dis = 50;
 
             this.money = 0;
@@ -296,7 +296,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
              this.opt.context.fillRect(0, 0 , 100, 100);
              */
             var dx = sprite.calc().now;
-            this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.width, this.height);
+            this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.w, this.h);
 
         };
 
@@ -316,7 +316,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     dx++;
                     date = Date.now();
                 };
-                _this.opt.context.drawImage( window.gb.imgs["app/imgs/flash.png"],dx*_this.width ,0, 100, 100,_this.x, _this.y, _this.width, _this.height);
+                _this.opt.context.drawImage( window.gb.imgs["app/imgs/flash.png"],dx*_this.w ,0, 100, 100,_this.x, _this.y, _this.w, _this.h);
             };
             setTimeout( function() {
                 _this.draw = orginalDraw;
@@ -333,7 +333,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 //_this.opt.context.fillStyle = "rgba(255, 255, 255, "+Math.random()+")";
                 _this.opt.context.fillStyle = "#f00";
                 _this.opt.context.globalCompositeOperation = "lighter";
-                _this.opt.context.fillRect(_this.x, _this.y, _this.width, _this.height);
+                _this.opt.context.fillRect(_this.x, _this.y, _this.w, _this.h);
                 orginalDraw.apply(_this, arguments);
             };
             setTimeout( function() {

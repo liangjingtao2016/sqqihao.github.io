@@ -1,11 +1,8 @@
-define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G/Power"], function(Plane, EMissile, Sprite, Diamon, Power) {
+define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMissile, Sprite ) {
 
-    /**
-     * @desc 敌人飞机模型;
-     * */
-    var Enemy = P(Plane, function ( enemy, plane ) {
+    var Boss = P(Plane, function (boss, plane) {
 
-        enemy.init = function ( opt ) {
+        boss.init = function ( opt ) {
 
             var _this = this;
             plane.init.apply(this, arguments);
@@ -42,48 +39,19 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
 
             this.task.addTask( taskFn );
             this.remove = function() {
-
-                if( _.random(0,10)>4 ) {
-
-                    var diamon = new Diamon({
-                        task : _this.task,
-                        canvas : _this.canvas,
-                        context : _this.context,
-                        x : _this.x,
-                        y : _this.y,
-                        w : 20,
-                        h : 20,
-                        speedX : _this.speedX/2,
-                        speedY : _this.speedY/2
-                    });
-
-                };
-
-                if( _.random(0,10)>8 ) {
-
-                    new Power({
-                        task : _this.task,
-                        canvas : _this.canvas,
-                        context : _this.context,
-                        x : _this.x,
-                        y : _this.y,
-                        speedX : _this.speedX/2,
-                        speedY : _this.speedY/2
-                    });
-                };
-
                 _this.task.removeTask( taskFn );
             }
         };
 
-        enemy.setup = function () {
+        boss.setup = function () {
             var _this = this;
             this.x += this.speedX;
             this.y += this.speedY;
             //canvas, context, bg, x, y, w ,h , info
             //info { speedX, speedY, damage}
-            if( this.sprite.calc().now==4 ) {
-                var eMissile = new this.EMissile(this.canvas, this.context, this.eMissileBg , this.x+(this.w/2), this.y, this.eMissileW, this.eMissileH, {
+            var now = this.sprite.calc().now;
+            if( now==4 ) {
+                var eMissile = new this.EMissile(this.canvas, this.context, this.eMissileBg , this.x+((this.w)/2)-(this.eMissileW/2), this.y, this.eMissileW, this.eMissileH, {
                     speedX : this.eMissileSpeedX,
                     speedY : this.eMissileSpeedY,
                     damage : this.eMissileDamage,
@@ -102,17 +70,76 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
                     _this.task.removeTask( eMTask );
                 };
                 _this.task.addTask( eMTask );
+
             };
+            if( now == 20 ) {
+
+                if( _this.speedX==0 ) {
+                    _this.speedX = 2;
+                }else{
+                    _this.speedX = -_this.speedX;
+                };
+
+            };
+            setTimeout(function() {
+                _this.speedY = 0;
+            },2000);
 
         };
 
-        enemy.draw = function () {
+        boss.draw = function () {
 
             this.context.drawImage(this.bg, this.x, this.y ,this.w, this.h);
 
         };
 
+        boss.destory = function () {
+            var _this = this;
+            plane.destory.apply(_this, arguments);
+            setTimeout(function() {
+                plane.destory.apply(_this, arguments);
+
+                setTimeout(function() {
+                    plane.destory.apply(_this, arguments);
+
+                    setTimeout(function() {
+                        plane.destory.apply(_this, arguments);
+
+                        setTimeout(function() {
+
+                            plane.destory.apply(_this, arguments);
+
+                            setTimeout(function() {
+                                plane.destory.apply(_this, arguments);
+
+                                setTimeout(function() {
+                                    plane.destory.apply(_this, arguments);
+
+                                    setTimeout(function() {
+                                        plane.destory.apply(_this, arguments);
+
+                                        setTimeout(function() {
+                                            plane.destory.apply(_this, arguments);
+                                            window.gb.level++;
+                                            alert("进入第"+window.gb.level+"关");
+                                            window.g( window.gb.level );
+                                        },1000);
+
+                                    },1000);
+
+                                },1000);
+
+                            },1000);
+
+                        },1000);
+
+                    },1000);
+
+                },1000);
+
+            },1000);
+        };
     });
 
-    return Enemy;
+    return Boss;
 })

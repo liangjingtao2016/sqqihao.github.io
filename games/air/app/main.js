@@ -8,7 +8,7 @@ var cfg = cfg || {
 window.gb = window.gb || {
 
     //所有的用户信息保存这里面
-    users : ["app/imgs/s.gif","app/imgs/logo_small.gif","app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
+    users : ["app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/s.gif","app/imgs/logo_small.gif","app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
         "app/imgs/back_img.png","app/imgs/back_img1.png","app/imgs/back_img2.png",
         "app/imgs/flash.png", "app/imgs/life.png", "app/imgs/money.png", "app/imgs/power.png",
         "app/imgs/mybullet1.png", "app/imgs/mybullet2.png", "app/imgs/mybullet3.png",
@@ -19,8 +19,9 @@ window.gb = window.gb || {
         "app/imgs/explosion0.png","app/imgs/explosion1.png","app/imgs/explosion2.png","app/imgs/explosion3.png","app/imgs/explosion4.png",
         "app/imgs/diamons/d0.png", "app/imgs/diamons/d1.png", "app/imgs/diamons/d2.png", "app/imgs/diamons/d3.png", "app/imgs/diamons/d4.png",
         "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png",
-        "app/imgs/boss.png",
-        "app/imgs/bossbullet2.png"
+        "app/imgs/boss.png","app/imgs/boss0.png",
+        "app/imgs/bossbullet2.png","app/imgs/pd30.png",
+        "app/imgs/g2.jpg", "app/imgs/author.png"
     ],
 
 
@@ -79,44 +80,15 @@ window.gb = window.gb || {
 
 };
 
-require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/requestAnimationFrame" ], function() {
+require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/requestAnimationFrame", "app/Model/Audios" ], function() {
 
     require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
             "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
             "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon"],
         function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon) {
 
-            /**
-             * @desc 用户控制层；
-             * @desc 选择关卡层， 查看帮助层， 游戏设置层， 设置背景音乐；
-             * */
-            var Con0 = P(EventBase, function ( con0 ) {
-
-            });
-
-            /**
-             * @desc 主界面控制层上下左右，wasd， missile是持续放的;
-             * @desc 草鸡misille的控制层；
-             * @desc 游戏暂停；
-             * */
-            var Con1 = P(EventBase, function ( con1 ) {
-
-            });
-
             window.canvas = document.getElementsByTagName("canvas")[0];
             window.context = canvas.getContext("2d");
-            var sound = new GT.Sound({
-                id: "sfx-1",
-                src: "./app/audio/music.mp4",
-                loop: true,
-                volume: 1,
-                tag: "sfx",
-                channel: 2
-            });
-            sound.load();
-            sound.onLoad = function(){
-                this.play();
-            };
 
             window.g = function ( level ) {
 
@@ -133,11 +105,13 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
                     context : canvas.getContext('2d'),
                     task  : task
                 });
-                var bg = new Bg(canvas, canvas.getContext('2d'), 1);
+                var bg = new Bg(canvas, canvas.getContext('2d'),  window.gb.level + 1);
 
                 moonWarr.flash();
-                window.moonWarr = moonWarr;
+
                 var info = new Info( canvas, context );
+
+                //把战斗机保存到任务列表中;
                 task.plane( moonWarr );
                 moonWarr.drawDashLine();
                 //test
@@ -181,18 +155,10 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
                      enemy.draw();*/
                 }).setInterval(30);
 
-                /*
-                 var enemy = new Enemy({
-                 canvas : canvas,
-                 context : canvas.getContext('2d'),
-                 task : task
-                 });
-                 */
-
             };
 
             window.gb.start = function() {
-                console.log(window.gb.userData);
+                //console.log(window.gb.userData);
                 //跳过去了;
                 g();
             };
@@ -201,7 +167,7 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
                 var test = false;
                 if( test ) {
-                    g();
+                    g(0);
                 }else{
                     window.pages = new Pages();
                     pages.add( new gPages.StartPage( canvas ) );

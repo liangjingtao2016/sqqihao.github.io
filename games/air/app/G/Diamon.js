@@ -1,15 +1,5 @@
 define(["app/C/Sprite"], function( Sprite ) {
 
-    var diamonAudio = new GT.Sound({
-        id: "Diamon-2",
-        src: "./app/audio/Diamon.mp3",
-        loop: false,
-        volume: 1,
-        tag: "Diamon",
-        channel: 2
-    });
-    diamonAudio.load();
-
     var Diamon = P(EventBase, function( diamon ) {
 
         diamon.init = function ( opt ) {

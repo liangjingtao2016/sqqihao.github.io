@@ -9,13 +9,18 @@ define(["app/C/Page"], function ( Page ) {
         page.create = function () {
             var _this = this;
             //创建两个图片的按钮;
-            plant0 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/plane8.png"], canvas.width/2-40, canvas.height/2 - 100 ,40, 80 ,function() {
+
+            context.drawImage( window.gb.imgs["app/imgs/background1.jpg"], 0 , 0 ,window.gb.imgs["app/imgs/background1.jpg"].width, window.gb.imgs["app/imgs/background1.jpg"].height, 0, 0 ,canvas.width, canvas.height);
+            context.fillStyle = "#ffffff";
+            context.font = "20px Arial";
+            context.fillText("选择作战飞机", 10 , 30);
+            plant0 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/plane11.png"], canvas.width/2-40, canvas.height/2 - 100 ,80, 80 ,function() {
                 _this.destory();
                 window.gb.initUserData("app/imgs/plane8.png");
                 window.gb.start();
             });
 
-            plant1 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/plane9.png"], canvas.width/2-40, canvas.height/2 ,40, 80 ,function() {
+            plant1 = util.drawImage(canvas, context, window.gb.imgs["app/imgs/plane12.png"], canvas.width/2-40, canvas.height/2 ,80, 80 ,function() {
                 _this.destory();
                 window.gb.initUserData("app/imgs/plane9.png");
                 window.gb.start();
@@ -41,10 +46,18 @@ define(["app/C/Page"], function ( Page ) {
 
         page.create = function () {
             util.clear( canvas );
+
+            context.fillStyle = "#ffffff";
+            context.drawImage(window.gb.imgs["app/imgs/g2.jpg"],0 , 0 , canvas.width, canvas.height);
+            context.font = "30px Arial";
+            context.fillText("help page", canvas.width/2, 30);
+            context.font = "16px Arial";
+            context.fillText("在电脑端通过方向键移动", 0 , canvas.height-60);
+            context.fillText("在手机或者平板上直接触屏飞机可移动", 0 , canvas.height-30);
+
             backFn = util.button(canvas, context, 60, 10 , "back", function() {
                 pages.back();
             });
-            context.fillText("help page", canvas.width/2, 10);
         };
 
         page.destory = function () {
@@ -65,13 +78,19 @@ define(["app/C/Page"], function ( Page ) {
         namePage.create = function () {
 
             util.clear( canvas );
+            context.drawImage(window.gb.imgs["app/imgs/author.png"],0 , 0 , canvas.width, canvas.height);
+
+            context.fillStyle = "#ffffff";
             backFn = util.button(canvas, context, 60, 10 , "back", function() {
                 pages.back();
             });
-            context.fillText("Name page", canvas.width/2, 10);
-            context.fillText("author qihao", canvas.width/2, 30);
-            context.fillText("design qihao", canvas.width/2, 50);
-            context.fillText("music qihao", canvas.width/2, 70);
+            context.font = "20px Arial";
+            context.fillText("Name page", canvas.width/2, 20);
+            context.fillText("author qihao", canvas.width/2, 40);
+            context.fillText("design qihao", canvas.width/2, 60);
+            context.fillText("music qihao", canvas.width/2, 80);
+            context.fillText("my blog : ", 0, 180);
+            context.fillText("www.cnblogs.com/diligenceday", 0, 200);
 
         };
 

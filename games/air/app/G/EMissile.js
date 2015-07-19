@@ -1,15 +1,5 @@
 define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
 
-    var explodeEffect = new GT.Sound({
-        id: "explodeEffect-2",
-        src: "./app/audio/explodeEffect.mp3",
-        loop: false,
-        volume: 1,
-        tag: "explodeEffect",
-        channel: 2
-    });
-    explodeEffect.load();
-
     var EMissile = P(Missile, function (eMissile , missile) {
 
         /**

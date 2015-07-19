@@ -4,19 +4,10 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
      * @desc 主角的飞机模型;
      * */
     var MoonWarr = P(Plane, function ( moon, plane ) {
-        var fireEffect = new GT.Sound({
-            id: "sfx-2",
-            src: "./app/audio/fireEffect.mp3",
-            loop: false,
-            volume: 1,
-            tag: "sfx",
-            channel: 2
-        });
-        fireEffect.load();
-        //如果把变量定义在这里，会导致一个问题， 所有的实例都会共享这个变量 ， 闭包的另外一种存在方式;
 
-        var sprite;
-        var missileSprite;
+        // 如果把变量定义在这里，会导致一个问题， 所有的实例都会共享这个变量 ， 闭包的另外一种存在方式;
+        // 然后导致fireEffect播放出问题的问题，弄了半天;
+
         moon.init = function ( opt ) {
 
             opt = opt || {
@@ -36,27 +27,15 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.lifes = 4;
 
             this.speed = opt.speed || 2;
-            this.equitsFlag = /*[
-             true ,true, true, true ,true ,true ,true ,true,
-             false ,false, false, false ,false ,false ,false ,false,
-             true
-             ];*//*
-                [
-                    false ,false, false, false ,false ,false ,false ,false,
-                    true ,true, true, true ,true ,true ,true ,true,
-                    true,true,
-                    true
-                ];.
-             */
-
-                /*[
-             true ,true, false, false ,false ,false ,false ,false,
-                 false ,false, false, false ,false ,false ,false ,false,
-             false,false,
-             false
-             ];
-            */
+            this.equitsFlag =
             [true,true] ;
+            /*    [
+                    true ,true, true, true ,
+                true ,true, true, true ,
+                true,true,
+                true
+            ];*/
+
             this.equits = [
                 {
                     bg : "app/imgs/mybullet1.png",
@@ -99,90 +78,10 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     h : 15
                 },
                 {
-                    bg : "app/imgs/mybullet1.png",
-                    damage : 1,
-                    speedX : -0.4,
-                    speedY : -3,
-                    dx : 2,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet1.png",
-                    damage : 1,
-                    speedX : 0.4,
-                    speedY : -3,
-                    dx : 30,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet1.png",
-                    damage : 1,
-                    speedX : -0.6,
-                    speedY : -3,
-                    dx : 2,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet1.png",
-                    damage : 1,
-                    speedX : 0.6,
-                    speedY : -3,
-                    dx : 30,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet2.png",
-                    damage : 1,
-                    speedX : 0,
-                    speedY : -3,
-                    dx : 2,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet2.png",
-                    damage : 1,
-                    speedX : 0,
-                    speedY : -3,
-                    dx : 30,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet2.png",
-                    damage : 1,
-                    speedX : -0.2,
-                    speedY : -3,
-                    dx : 2,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
-                    bg : "app/imgs/mybullet2.png",
-                    damage : 1,
-                    speedX : 0.2,
-                    speedY : -3,
-                    dx : 30,
-                    dy : -10,
-                    w : 9,
-                    h : 15
-                },
-                {
                     bg : "app/imgs/mybullet2.png",
                     damage : 1,
                     speedX : -0.4,
-                    speedY : -3,
+                    speedY : -4,
                     dx : 2,
                     dy : -10,
                     w : 9,
@@ -192,7 +91,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     bg : "app/imgs/mybullet2.png",
                     damage : 1,
                     speedX : 0.4,
-                    speedY : -3,
+                    speedY : -4,
                     dx : 30,
                     dy : -10,
                     w : 9,
@@ -202,7 +101,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     bg : "app/imgs/mybullet2.png",
                     damage : 1,
                     speedX : -0.6,
-                    speedY : -3,
+                    speedY : -4,
                     dx : 2,
                     dy : -10,
                     w : 9,
@@ -212,7 +111,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     bg : "app/imgs/mybullet2.png",
                     damage : 1,
                     speedX : 0.6,
-                    speedY : -3,
+                    speedY : -4,
                     dx : 30,
                     dy : -10,
                     w : 9,
@@ -242,22 +141,22 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     bg:"app/imgs/hole.png",
                     damage : 3,
                     speedX : 0,
-                    speedY : -4,
+                    speedY : -5,
                     dx : 4,
                     dy : -20,
                     w : 30,
                     h : 30
                 }];
             this.bg = opt.bg;
-            sprite = new Sprite( this.bg , window.gb.userData.frames, 400);
+            this.sprite = new Sprite( this.bg , window.gb.userData.frames, 400);
             this.bindEv();
 
             //初始话子弹的发射, 300毫秒自动发射;
-            missileSprite = new Sprite("testData", 16, 400);
+            this.missileSprite = new Sprite("testData", 16, 400);
         };
 
         moon.setup = function () {
-            if( missileSprite.calc().now === 1 ) {
+            if( this.missileSprite.calc().now === 1 ) {
                 var _this = this;
                 for(var i=0; i<this.equits.length; i++ ) {
 
@@ -267,7 +166,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                         (function () {
 
                             var missile2 = new Missile( this.opt.canvas, this.opt.canvas.getContext("2d"), window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, task : _this.task});
-                            fireEffect.play();
+
                             var missileTask = function () {
                                 missile2.setup();
                                 missile2.draw();
@@ -285,6 +184,8 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     }
 
                 };
+                fireEffect.play();
+
             };
         };
 
@@ -295,7 +196,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
              this.opt.context.fillStyle = "#f00";
              this.opt.context.fillRect(0, 0 , 100, 100);
              */
-            var dx = sprite.calc().now;
+            var dx = this.sprite.calc().now;
             this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.w, this.h);
 
         };

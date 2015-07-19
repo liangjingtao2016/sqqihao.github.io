@@ -13,24 +13,24 @@ define(["app/C/Sprite"], function( Sprite ) {
          * @desc
          */
         bg.init = function ( can, ctx , level) {
-            context = ctx;
-            canvas = can;
-            this.level = 2 || 0;
+            this.context = ctx;
+            this.canvas = can;
+            this.level = level || 0;
             //就直接2551帧， 30毫秒走一个像素;
-            sprite = [new Sprite( window.gb.imgs["app/imgs/back_img.png"] , 3051-500, 30),
+            this.sprite = [new Sprite( window.gb.imgs["app/imgs/back_img.png"] , 3051-500, 30),
                 //1140帧;
                 new Sprite( window.gb.imgs["app/imgs/back_img1.png"] , 1640-500, 30),
                 //1140帧;
                 new Sprite( window.gb.imgs["app/imgs/back_img2.png"] , 1640-500, 30)
             ][this.level];
-            backgrond = sprite.calc().bg;
+            this.backgrond = this.sprite.calc().bg;
         };
 
         /**
          * @desc 随着时间的增加， 地图界面的改变;
          */
         bg.setup = function (  ) {
-            now =sprite.calc().now;
+            this.now = this.sprite.calc().now;
         };
 
         /**
@@ -38,7 +38,7 @@ define(["app/C/Sprite"], function( Sprite ) {
          */
         bg.draw = function () {
             //随着now的增加, background往上移动;
-            context.drawImage(backgrond, 0, [3051,1640,1640][this.level]-now-500, 400,500, 0, 0, canvas.width, canvas.height);
+            this.context.drawImage(this.backgrond, 0, [3051,1640,1640][this.level]-this.now-500, 400,500, 0, 0, this.canvas.width, this.canvas.height);
         };
 
     });

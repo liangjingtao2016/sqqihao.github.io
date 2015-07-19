@@ -47,7 +47,8 @@ define(function () {
     TaskList.prototype.setInterval = function ( time ) {
         time = time || 33;
         var _this = this;
-        //this.timer = setInterval(this.run.bind(this), time);
+        this.timer = setInterval(this.run.bind(this), time);
+
         var fn = function() {
             _this.timer = requestAnimationFrame(function() {
                 _this.run.bind(_this)();

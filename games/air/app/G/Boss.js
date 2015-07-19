@@ -32,9 +32,6 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
             var taskFn = function() {
                 _this.setup();
                 _this.draw();
-                if(_this.x<-_this.w||_this.x>_this.canvas.width||_this.y<-_this.h||_this.y>_this.canvas.height) {
-                    _this.task.removeTask( arguments.callee );
-                };
             };
 
             this.task.addTask( taskFn );
@@ -44,46 +41,6 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
         };
 
         boss.setup = function () {
-            var _this = this;
-            this.x += this.speedX;
-            this.y += this.speedY;
-            //canvas, context, bg, x, y, w ,h , info
-            //info { speedX, speedY, damage}
-            var now = this.sprite.calc().now;
-            if( now==4 ) {
-                var eMissile = new this.EMissile(this.canvas, this.context, this.eMissileBg , this.x+((this.w)/2)-(this.eMissileW/2), this.y, this.eMissileW, this.eMissileH, {
-                    speedX : this.eMissileSpeedX,
-                    speedY : this.eMissileSpeedY,
-                    damage : this.eMissileDamage,
-                    task : this.task
-                });
-                var eMTask = function () {
-                    eMissile.setup();
-                    eMissile.draw();
-                    if( eMissile.outOfArea() ) {
-                        eMissile.destory();
-                        //从task列表删除该函数;
-                        _this.task.removeTask( arguments.callee );
-                    };
-                };
-                eMissile.remove = function() {
-                    _this.task.removeTask( eMTask );
-                };
-                _this.task.addTask( eMTask );
-
-            };
-            if( now == 20 ) {
-
-                if( _this.speedX==0 ) {
-                    _this.speedX = 2;
-                }else{
-                    _this.speedX = -_this.speedX;
-                };
-
-            };
-            setTimeout(function() {
-                _this.speedY = 0;
-            },2000);
 
         };
 
@@ -121,8 +78,8 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
                                         setTimeout(function() {
                                             plane.destory.apply(_this, arguments);
                                             window.gb.level++;
-                                            alert("进入第"+window.gb.level+"关");
-                                            window.g( window.gb.level );
+                                            alert("进入第下一关");
+                                            g( window.gb.level );
                                         },1000);
 
                                     },1000);

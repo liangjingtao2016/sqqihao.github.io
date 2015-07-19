@@ -3,15 +3,6 @@ define(["app/C/Sprite"], function( Sprite ) {
      * @desc 基本的飞机模型;
      * */
     var Plane = P(EventBase, function ( plane  ) {
-        var shipDestroyEffect = new GT.Sound({
-            id: "sfx-2",
-            src: "./app/audio/shipDestroyEffect.mp3",
-            loop: false,
-            volume: 1,
-            tag: "sfx",
-            channel: 2
-        });
-        shipDestroyEffect.load();
 
         plane.init = function ( opt ) {
             this.opt = opt;

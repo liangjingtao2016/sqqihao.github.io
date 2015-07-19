@@ -20,7 +20,7 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
             this.eMissileSpeedX = opt.eMissileSpeedX || 0;
             this.eMissileSpeedY = opt.eMissileSpeedY || 3;
             this.eMissileDamage = opt.eMissileDamage || 1;
-            this.bg = opt.bg || window.gb.imgs["app/imgs/enmey0.png"];
+            this.bg = opt.bg || window.gb.imgs["app/imgs/enemy0.png"];
             this.money = opt.money || 1;
             this.task = opt.task;
             this.x = opt.x || 0;
@@ -103,6 +103,32 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
                 };
                 _this.task.addTask( eMTask );
             };
+            var plane = this.task.plane;
+            if( util.canvasCollision(
+                //子弹的信息;
+                {
+                    left : this.x,
+                    top : this.y,
+                    right : this.x+this.w,
+                    bottom : this.y+this.h
+                },
+                {
+                    left : plane.x,
+                    top : plane.y,
+                    right : plane.x+plane.w,
+                    bottom : plane.y+plane.h
+                }
+            )) {
+                //被一个子弹射中以后， 只要子弹不消失;还会被这个子弹射中
+                if( (this.blood--)===0 ) {
+                    window.gb.userData.score++;
+                    this.remove&&this.remove();
+                    this.destory&&this.destory();
+                };
+                plane.blood--;
+                //播放音乐;
+                explodeEffect.play();
+            }
 
         };
 

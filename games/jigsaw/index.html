@@ -43,7 +43,8 @@
         fn($);
 
     })(function($) {
-        //这个canvas是缓冲图片用的;
+
+        //这个canvas是缓存图片用的;
         var canvas = document.createElement("canvas");
         canvas.width = document.documentElement.clientWidth/2;
         canvas.height = document.documentElement.clientWidth/2;
@@ -169,6 +170,7 @@
                 document.getElementById("content").innerHTML = "";
                 this.maps = {};
                 this.doms = [];
+                this.instances = [];
                 for(var i=0; i<this.blocks.length; i++ ) {
                     for(var j=0; j<this.blocks[i].length; j++) {
                         var instance = new Block( this.blocks[i][j], j, i ,this.avW, this.avH);
@@ -191,8 +193,8 @@
 
                 var len = this.instances.length;
                 while(len--) {
-                    //只要有一个不等就无法成功;
-                    this.maps[this.instances[len].canvas.y + "_" + this.instances[len].canvas.x] = true;;
+                    this.maps[this.instances[len].canvas.y + "_" + this.instances[len].canvas.x] = true;
+                    this.instances[len].canvas.map = this.instances[len].canvas.y + "_" + this.instances[len].canvas.x;
                 };
                 /*
                 for(var i=0; i<this.blocks.length; i++ ) {
@@ -380,6 +382,9 @@
                     case 40 :
                         name = "downF";
                         break;
+                    default :
+                        ev.preventDefault();
+                        return false
                 };
                 run( clipImage, name );
                 ev.preventDefault();
@@ -404,7 +409,7 @@
 
                 window.clipImage = new ClipImage(canvas, numbers[level]);
                 window.clipImage.random();
-                Controller( window.clipImage, numbers[level]);
+                Controller( window.clipImage, numbers[level] || 3);
 
             });
 

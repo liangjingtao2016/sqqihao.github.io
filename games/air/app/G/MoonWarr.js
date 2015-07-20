@@ -348,33 +348,40 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
 
             //绑定移动的四个方向;
             var commonControll = new CommonController();
-            commonControll.run(function( dixX ) {
-
-                _this.x-=_this.speed;
+            commonControll.run(function( disX, objX, disY ) {
+                var speed =  Math.abs(( (objX - disX)*_this.speed ) / Math.pow((objX-disX)*(objX-disX)+(_this.y-disY)*(_this.y-disY) , 1/2));
+                if( isNaN(speed) ) speed = _this.speed;
+                _this.x-=speed;
                 if( _this.x<0 ) _this.x = 0;
-                if( _this.x< dixX) _this.x = dixX;
+                if( _this.x< disX) _this.x = disX;
 
             }, function ( disY, objY , disX) {
 
-                var speed = Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
+                //根据2px的距离进行换算到y的实际速度;
+                var speed = Math.abs(((objY - disY)*_this.speed)/Math.pow((objY - disY)*(objY - disY)+(disX-_this.x)*(disX-_this.x), 1/2));
+                //var speed = Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
                 if( isNaN(speed) ) speed = _this.speed;
                 _this.y-=speed;
                 if( _this.y<0 ) _this.y=0;
-                if( _this.y<disY)_this.y=disY;
+                if( _this.y<disY )_this.y = disY;
 
-            }, function ( dixX ) {
+            }, function ( disX, objX, disY ) {
 
-                _this.x+=_this.speed;
+                var speed =  Math.abs(( (objX - disX)*_this.speed ) / Math.pow((objX-disX)*(objX-disX)+(_this.y-disY)*(_this.y-disY) , 1/2));
+                if( isNaN(speed) ) speed = _this.speed;
+                _this.x+=speed;
                 if( _this.x>canvas.width-_this.width) _this.x = canvas.width-_this.width;
-                if( _this.x>dixX ) _this.x = dixX;
+                if( _this.x>disX ) _this.x = disX;
 
             }, function ( disY, objY , disX) {
 
-                var speed =  Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
+                //根据2px的距离进行换算到y的实际速度;
+                var speed = Math.abs(((objY - disY)*_this.speed)/Math.pow((objY - disY)*(objY - disY)+(disX-_this.x)*(disX-_this.x), 1/2));
+                //var speed =  Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
                 if( isNaN(speed) ) speed = _this.speed;
                 _this.y+=speed;
                 if( _this.y>canvas.height - _this.height ) _this.y = canvas.height - _this.height;
-                if( _this.y>disY)_this.y=disY;
+                if( _this.y>disY )_this.y = disY;
 
             }, function(){},_this);
         }

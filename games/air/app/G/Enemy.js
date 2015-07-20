@@ -59,7 +59,7 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
 
                 };
 
-                if( _.random(0,10)>8 ) {
+                if( _.random(0,10)>7 ) {
 
                     new Power({
                         task : _this.task,

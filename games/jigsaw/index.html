@@ -46,9 +46,10 @@
 
         //这个canvas是缓存图片用的;
         var canvas = document.createElement("canvas");
-        canvas.width = document.documentElement.clientWidth/2;
-        canvas.height = document.documentElement.clientWidth/2;
-        document.getElementById("content").style.width =  document.documentElement.clientWidth/2 + "px";
+        var minScreenWidth = Math.min( document.documentElement.clientWidth/ 2, document.documentElement.clientHeight/2 );
+        canvas.width = minScreenWidth;
+        canvas.height = minScreenWidth;
+        document.getElementById("content").style.width =  minScreenWidth + "px";
         //保存了所有的block;
         var blocks = [];
 

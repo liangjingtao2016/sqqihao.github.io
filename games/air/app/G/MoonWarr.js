@@ -20,7 +20,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.canvas = opt.canvas;
             this.w = 40;
             this.h = 40;
-            this.dis = 50;
+            this.dis = 20;
 
             this.money = 0;
             this.blood = 10;
@@ -354,6 +354,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 _this.x-=speed;
                 if( _this.x<0 ) _this.x = 0;
                 if( _this.x< disX) _this.x = disX;
+                if( _this.x+_this.w> _this.canvas.width) _this.x = _this.canvas.width-_this.w;
 
             }, function ( disY, objY , disX) {
 
@@ -370,8 +371,8 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 var speed =  Math.abs(( (objX - disX)*_this.speed ) / Math.pow((objX-disX)*(objX-disX)+(_this.y-disY)*(_this.y-disY) , 1/2));
                 if( isNaN(speed) ) speed = _this.speed;
                 _this.x+=speed;
-                if( _this.x>canvas.width-_this.width) _this.x = canvas.width-_this.width;
                 if( _this.x>disX ) _this.x = disX;
+                if( _this.x>canvas.width-_this.w) _this.x = canvas.width-_this.h;
 
             }, function ( disY, objY , disX) {
 
@@ -380,8 +381,8 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 //var speed =  Math.abs((_this.speed*(disY-_this.y))/(disX-_this.x));
                 if( isNaN(speed) ) speed = _this.speed;
                 _this.y+=speed;
-                if( _this.y>canvas.height - _this.height ) _this.y = canvas.height - _this.height;
                 if( _this.y>disY )_this.y = disY;
+                if( _this.y>canvas.height - _this.h ) _this.y = canvas.height - _this.h;
 
             }, function(){},_this);
         }

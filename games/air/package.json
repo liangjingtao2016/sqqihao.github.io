@@ -1,5 +1,5 @@
 {
-  "name": "game air",
+  "name": "game_air",
   "version": "0.0.0",
   "description": "for watch",
   "main": "Gruntfile.js",
@@ -10,7 +10,8 @@
     "grunt-contrib-watch": "~0.5.3"
   },
   "devDependencies": {
-    "grunt-contrib-less": "~1.0.0"
+    "grunt-contrib-less": "~1.0.0",
+    "requirejs": "~2.1.19"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -76,16 +76,19 @@ define(function() {
             disY = ev.touches&&ev.touches[0].clientY;
             var fns = [];
             //如果点击的距离超过50像素触发事件;
-            if( Math.abs(disX-obj.x)>obj.dis ){
+            if( Math.abs(disX-obj.x)<obj.dis &&  Math.abs(disY-obj.y)<obj.dis) {
+
+                return ;
+
+            }else{
+
                 //如果当前的x大于物体右侧, 就像右走;
                 if(disX > obj.x ) {
                     fns.push( rightFn.bind(rightFn,disX, obj.x, disY) );
                 }else{
                     fns.push( leftFn.bind(leftFn, disX, obj.x, disY) );
                 };
-            };
 
-            if( Math.abs(disY-obj.y)>obj.dis ){
                 //如果当前的Y大于物体的y轴, 就像下走;
                 if( disY > obj.y ) {
                     fns.push( bottomFn.bind(bottomFn,disY,obj.y, disX) );

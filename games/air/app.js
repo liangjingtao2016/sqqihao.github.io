@@ -7,4 +7,8 @@ requirejs.config({
 
 requirejs(["app/main"],function() {
     //alert(1)
+    console.log("start");
+    window.oncontextmenu = function () {
+        return false;
+    };
 });

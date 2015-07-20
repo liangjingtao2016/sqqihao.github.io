@@ -7,6 +7,8 @@ define(["app/G/Diamon", "app/C/Sprite"], function( Diamon, Sprite ) {
         img : "app/imgs/addhealth.png"
     }, {
         img : "app/imgs/addpower.png"
+    },{
+        img : "app/imgs/speed.png"
     }];
 
     var diamonAudio = new GT.Sound({
@@ -32,7 +34,7 @@ define(["app/G/Diamon", "app/C/Sprite"], function( Diamon, Sprite ) {
             this.speedY = opt.speedY || 1;
             this.task = opt.task || {};
 
-            var type = _.random(0,3);
+            var type = _.random(0,4);
             this.type = type;
             var obj = objs[type];
             this.bg = window.gb.imgs[
@@ -79,6 +81,9 @@ define(["app/G/Diamon", "app/C/Sprite"], function( Diamon, Sprite ) {
             )) {
                 diamonAudio.play();
                 _this.removeTask();
+                if( this.type == 4) {
+                    plane.speed++;
+                };
 
                 if( this.type ===3 ) {
                     plane.equitsFlag.push(true);

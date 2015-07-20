@@ -18,15 +18,22 @@ module.exports = function (grunt) {
             options: {
                 livereload: 35729 // this port must be same with the connect livereload port
             },
+            tasks: ['exec'],
             scripts: {
                 options: {
                     livereload: true
                 },
                 files : ['**/*']
             }
+        },
+        exec: {
+            //重新build
+            rebuild : 'node r.js -o build.js'
         }
     });
+
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.registerTask('default',["connect","watch"]);
+    grunt.loadNpmTasks('grunt-exec');
+    grunt.registerTask('default',["exec","connect","watch"]);
 };

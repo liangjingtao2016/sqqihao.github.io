@@ -19,12 +19,17 @@ define(["app/C/Sprite"], function ( Sprite ) {
             this.speedY = info.speedY || -3;
             this.damage = info.damage || 1;
             this.task = info.task || {};
+            this.fn = info.fn;
             this.w = w;
             this.h = h;
 
         };
 
         missile.setup = function () {
+            if(this.fn) {
+                this.speedX = this.fn( this.speedX );
+                //this.speedY = this.fn( this.speedY );
+            };
             this.x = this.x + this.speedX;
             this.y = this.y + this.speedY;
             //把当前子弹和所有的敌机进行碰撞检测;

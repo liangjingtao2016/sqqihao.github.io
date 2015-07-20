@@ -56,10 +56,16 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
             setTimeout(function() {
                 plane.destory.apply(_this, arguments);
 
+                plane.destory.apply(_this, arguments);
+
                 setTimeout(function() {
                     plane.destory.apply(_this, arguments);
 
+                    plane.destory.apply(_this, arguments);
+
                     setTimeout(function() {
+                        plane.destory.apply(_this, arguments);
+
                         plane.destory.apply(_this, arguments);
 
                         setTimeout(function() {
@@ -69,7 +75,11 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
                             setTimeout(function() {
                                 plane.destory.apply(_this, arguments);
 
+                                plane.destory.apply(_this, arguments);
+
                                 setTimeout(function() {
+                                    plane.destory.apply(_this, arguments);
+
                                     plane.destory.apply(_this, arguments);
 
                                     setTimeout(function() {
@@ -78,8 +88,19 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
                                         setTimeout(function() {
                                             plane.destory.apply(_this, arguments);
                                             window.gb.level++;
-                                            alert("进入第下一关");
-                                            g( window.gb.level );
+
+                                                $.dialog({
+                                                    content : '游戏成功, 进入下一关!',
+                                                    title : 'alert',
+                                                    ok : function() {
+                                                        g( window.gb.level );
+                                                    },
+                                                    cancel : function(){
+                                                        location.reload();
+                                                    },
+                                                    lock : true
+                                                });
+
                                         },1000);
 
                                     },1000);

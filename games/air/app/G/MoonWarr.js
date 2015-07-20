@@ -28,14 +28,15 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
 
             this.speed = opt.speed || 2;
             this.equitsFlag =
-            [true,true] ;
-            /*    [
+                [true,true] ;
+               /* [
                     true ,true, true, true ,
                 true ,true, true, true ,
                 true,true,
-                true
-            ];*/
-
+                true,
+                    true, true
+            ];
+*/
             this.equits = [
                 {
                     bg : "app/imgs/mybullet1.png",
@@ -146,7 +147,46 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     dy : -20,
                     w : 30,
                     h : 30
-                }];
+                },{
+                    bg : "app/imgs/bomb.png",
+                    damage : 4,
+                    speedX : -0.5,
+                    speedY : -2,
+                    dx : 0,
+                    dy : -20,
+                    w : 20,
+                    h : 20,
+                    fn : (function () {
+                        var flag = 1;
+                        var temp = 0.01;
+                        return function( speedX ) {
+                            if( flag === 1 ) {
+                                return speedX-temp;
+                            }
+                            flag = -flag;
+                        };
+                    })()
+                },{
+                    bg : "app/imgs/bomb.png",
+                    damage : 4,
+                    speedX : 0.5,
+                    speedY : -2,
+                    dx : 36,
+                    dy : -20,
+                    w : 20,
+                    h : 20,
+                    fn : (function () {
+                        var flag = 1;
+                        var temp = 0.01;
+                        return function( speedX ) {
+                            if( flag === 1 ) {
+                                return speedX+temp;
+                            }
+                            flag = -flag;
+                        };
+                    })()
+                }
+            ];
             this.bg = opt.bg;
             this.sprite = new Sprite( this.bg , window.gb.userData.frames, 400);
             this.bindEv();
@@ -165,7 +205,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                         var equit = this.equits[i];
                         (function () {
 
-                            var missile2 = new Missile( this.opt.canvas, this.opt.canvas.getContext("2d"), window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, task : _this.task});
+                            var missile2 = new Missile( this.opt.canvas, this.opt.canvas.getContext("2d"), window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, fn : equit.fn, task : _this.task});
 
                             var missileTask = function () {
                                 missile2.setup();

@@ -106,6 +106,7 @@
          *  @desc 把图片通过canvas切成一块块;
          */
         function ClipImage(canvas , number) {
+
             //blocks是一个二维数组，保存的是所有的canvas方块;
             this.blocks = [];
             //instances是一维数组，保存的是实例化的数组;
@@ -152,6 +153,7 @@
              * @param 把canvas块混排， 打乱排序;
              * */
             random : function( ) {
+
                 var len = this.instances.length;
                 while(len--) {
                     $(this.instances[len].canvas).remove();
@@ -162,11 +164,13 @@
                     this.blocks[i] = _.shuffle(this.blocks[i]);
                 }
                 this.renderToDom();
+
             },
             /**
              * @desc 把canvas渲染到DOM;
              * */
             renderToDom : function () {
+
                 document.getElementById("content").innerHTML = "";
                 this.maps = {};
                 this.doms = [];
@@ -176,19 +180,24 @@
                         var instance = new Block( this.blocks[i][j], j, i ,this.avW, this.avH);
                         //把实例化的数据保存到instances
                         this.instances.push( instance );
+                        //界面中在虚拟数据中的占位;
                         this.maps[i+"_"+j] = true;
                     };
                 };
+
             },
 
             updataDom : function(cav, obj) {
 
+                //更新数据模型;
                 this.updataMap();
+                //实现拼图移动的动画;
                 $(cav).animate({top:obj.y*this.avH,left:obj.x*this.avW});
 
             },
 
             updataMap : function () {
+
                 this.maps = {};
 
                 var len = this.instances.length;
@@ -222,6 +231,7 @@
                 $(".progress-bar").width( (window.lev+ 1) * 25 + "%" );
                 init(window.lev);
             }
+
         });
 
         /**
@@ -234,12 +244,14 @@
          * @constructor Block
          */
         var Block = function(canvas, left, top,avW, avH) {
+
             this.canvas = canvas;
             this.left = left;
             this.top = top;
             this.avW = avW;
             this.avH = avH;
             this.init();
+
         };
 
         $.extend(Block.prototype, {
@@ -390,14 +402,26 @@
                 ev.preventDefault();
             });
 
-            $(document).swipeLeft(function() {
-                run(clipImage,"leftF")
-            }).swipeUp(function() {
-                run(clipImage,"upF")
-            }).swipeRight(function() {
-                run(clipImage,"rightF")
-            }).swipeDown(function() {
-                run(clipImage,"downF")
+            $(document).swipeLeft(function( ev ) {
+
+                run(clipImage,"leftF");
+                ev.stopPropagation();
+
+            }).swipeUp(function( ev ) {
+
+                run(clipImage,"upF");
+                ev.stopPropagation();
+
+            }).swipeRight(function( ev ) {
+
+                run(clipImage,"rightF");
+                ev.stopPropagation();
+
+            }).swipeDown(function( ev ) {
+
+                run(clipImage,"downF");
+                ev.stopPropagation();
+
             });
 
 

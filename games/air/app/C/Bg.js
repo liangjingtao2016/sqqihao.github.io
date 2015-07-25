@@ -17,11 +17,13 @@ define(["app/C/Sprite"], function( Sprite ) {
             this.canvas = can;
             this.level = level || 0;
             //就直接2551帧， 30毫秒走一个像素;
-            this.sprite = [new Sprite( window.gb.imgs["app/imgs/back_img.png"] , 3051-500, 30),
+            this.sprite = [new Sprite( window.gb.imgs["app/imgs/back_img.png"] , 3551-500, 30),
                 //1140帧;
                 new Sprite( window.gb.imgs["app/imgs/back_img1.png"] , 1640-500, 30),
                 //1140帧;
-                new Sprite( window.gb.imgs["app/imgs/back_img2.png"] , 1640-500, 30)
+                new Sprite( window.gb.imgs["app/imgs/back_img2.png"] , 1640-500, 30),
+                //1140帧;
+                new Sprite( window.gb.imgs["app/imgs/back_img.png"] , 3551-500, 30)
             ][this.level];
             this.backgrond = this.sprite.calc().bg;
         };
@@ -38,7 +40,7 @@ define(["app/C/Sprite"], function( Sprite ) {
          */
         bg.draw = function () {
             //随着now的增加, background往上移动;
-            this.context.drawImage(this.backgrond, 0, [3051,1640,1640][this.level]-this.now-500, 400,500, 0, 0, this.canvas.width, this.canvas.height);
+            this.context.drawImage(this.backgrond, 0, [3051, 1640, 1640, 3551][this.level]-this.now-500, 400,500, 0, 0, this.canvas.width, this.canvas.height);
         };
 
     });

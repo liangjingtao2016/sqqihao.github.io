@@ -126,6 +126,10 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
                     this.destory&&this.destory();
                 };
                 plane.blood--;
+                plane.destory&&plane.destory();
+                if( (plane.blood--)<=0 ) {
+                    plane.remove&&plane.remove();
+                };
                 //播放音乐;
                 explodeEffect.play();
             }

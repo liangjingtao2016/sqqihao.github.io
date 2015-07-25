@@ -8,7 +8,7 @@ var cfg = cfg || {
 window.gb = window.gb || {
 
     //所有的用户信息保存这里面
-    users : ["app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/s.gif","app/imgs/logo_small.gif","app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
+    users : ["app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
         "app/imgs/back_img.png","app/imgs/back_img1.png","app/imgs/back_img2.png",
         "app/imgs/flash.png", "app/imgs/life.png", "app/imgs/money.png", "app/imgs/power.png","app/imgs/speed.png",
         "app/imgs/mybullet1.png", "app/imgs/mybullet2.png", "app/imgs/mybullet3.png",
@@ -19,7 +19,7 @@ window.gb = window.gb || {
         "app/imgs/explosion0.png","app/imgs/explosion1.png","app/imgs/explosion2.png","app/imgs/explosion3.png","app/imgs/explosion4.png",
         "app/imgs/diamons/d0.png", "app/imgs/diamons/d1.png", "app/imgs/diamons/d2.png", "app/imgs/diamons/d3.png", "app/imgs/diamons/d4.png",
         "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png",
-        "app/imgs/boss.png","app/imgs/boss0.png",
+        "app/imgs/boss.png","app/imgs/boss0.png","app/imgs/boss4.png",
         "app/imgs/bossbullet2.png","app/imgs/pd30.png",
         "app/imgs/g2.jpg", "app/imgs/author.png"
     ],
@@ -117,6 +117,10 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
             task.plane( moonWarr );
             moonWarr.drawDashLine();
             //test
+            var steupDraw = function() {
+                moonWarr.setup.bind(moonWarr)();
+                moonWarr.draw.bind(moonWarr)();
+            };
 
             task.addTask( function() {
                 util.clear(canvas);
@@ -131,11 +135,7 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
                 info.setup( window.gb.userData );
             }).addTask(function() {
                 info.draw.bind( info )();
-            }).addTask(function() {
-                moonWarr.setup.bind(moonWarr)();
-            }).addTask(function () {
-                moonWarr.draw.bind(moonWarr)();
-            }).addTask(function() {
+            }).addTask(steupDraw).addTask(function() {
                 var times = Date.now() - now;
                 var timeLine =  (times+"").replace(/\d{3,3}$/,"000");
                 var enemys = LEVELS[ window.gb.level ] [ timeLine ];

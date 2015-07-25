@@ -8,8 +8,9 @@ define(function () {
      * @method setInterval
      * @method clearInterval
      */
-    var TaskList = function() {this.list = [], this.timer = null};
+    var TaskList = function() {this.list = [], this.timer = 1};
     TaskList.tId = 0;
+
 
     /**
      * @param {function}
@@ -47,10 +48,10 @@ define(function () {
     TaskList.prototype.setInterval = function ( time ) {
         time = time || 33;
         var _this = this;
-        this.timer = setInterval(this.run.bind(this), time);
-
+        //this.timer = setInterval(this.run.bind(this), time);
+        window.t = this;
         var fn = function() {
-            _this.timer = requestAnimationFrame(function() {
+            _this.timer&&requestAnimationFrame(function() {
                 _this.run.bind(_this)();
                 fn();
             });
@@ -61,7 +62,7 @@ define(function () {
      * @desc 暂停执行任务列表
      * */
     TaskList.prototype.clearInterval = function() {
-        cancelAnimationFrame( this.timer );
+        this.timer=0;
     };
     /**
      * TaskList主方法结束*/

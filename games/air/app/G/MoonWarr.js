@@ -425,7 +425,27 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 if( _this.y>canvas.height - _this.h ) _this.y = canvas.height - _this.h;
 
             }, function(){},_this);
-        }
+        };
+
+        moon.remove = function() {
+            this.blood = 10;
+            this.lifes--;
+            if( this.lifes === -1 ) {
+                $.dialog({
+                    content : '游戏失败',
+                    title : '提示信息',
+                    ok : function() {
+                        location.reload();
+                    },
+                    cancel : function(){
+                        location.reload();
+                    },
+                    lock : true
+                });
+                this.task.clearInterval();
+            };
+            this.flash();
+        };
     });
 
     return MoonWarr;

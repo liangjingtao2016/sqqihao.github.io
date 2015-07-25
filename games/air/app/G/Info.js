@@ -49,6 +49,7 @@ define(function() {
 
         info.draw = function () {
             context.save();
+            context.font = "bold 10px serif";
             context.fillStyle = "#f00";
             context.fillRect( 10, 2, 3 ,9);
             context.fillRect( 14, 2, 3 ,9);

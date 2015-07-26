@@ -107,6 +107,7 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
                 context : canvas.getContext('2d'),
                 task  : task
             });
+
             var bg = new Bg(canvas, canvas.getContext('2d'),  window.gb.level + 1);
 
             moonWarr.flash();

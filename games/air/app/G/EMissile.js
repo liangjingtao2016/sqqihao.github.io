@@ -30,11 +30,7 @@ define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
                     bottom : plane.y+plane.w
                 }
             )) {
-                plane.blood--;
-                plane.destory&&plane.destory();
-                if( (plane.blood--)<=0 ) {
-                plane.remove&&plane.remove();
-                };
+                plane.judge();
                 //播放爆炸声;
                 explodeEffect.play();
                 this.remove&&this.remove();

@@ -446,6 +446,14 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             };
             this.flash();
         };
+
+        moon.judge = function () {
+            this.blood--;
+            this.destory&&this.destory();
+            if( (this.blood--)<=0 ) {
+                this.remove&&this.remove();
+            };
+        }
     });
 
     return MoonWarr;

@@ -8,7 +8,7 @@ var cfg = cfg || {
 window.gb = window.gb || {
 
     //所有的用户信息保存这里面
-    users : ["app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
+    users : ["app/imgs/start.png","app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
         "app/imgs/back_img.png","app/imgs/back_img1.png","app/imgs/back_img2.png",
         "app/imgs/flash.png", "app/imgs/life.png", "app/imgs/money.png", "app/imgs/power.png","app/imgs/speed.png",
         "app/imgs/mybullet1.png", "app/imgs/mybullet2.png", "app/imgs/mybullet3.png",

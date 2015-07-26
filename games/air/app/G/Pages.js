@@ -85,9 +85,9 @@ define(["app/C/Page"], function ( Page ) {
                 pages.back();
             });
             context.font = "20px Arial";
-            context.fillText("Name page", canvas.width/2, 20);
+            context.fillText("about page", canvas.width/2, 20);
             context.fillText("author qihao", canvas.width/2, 40);
-            context.fillText("design qihao", canvas.width/2, 60);
+            context.fillText("designer qihao", canvas.width/2, 60);
             context.fillText("music qihao", canvas.width/2, 80);
             context.fillText("my blog : ", 0, 180);
             context.fillText("www.cnblogs.com/diligenceday", 0, 200);
@@ -137,10 +137,14 @@ define(["app/C/Page"], function ( Page ) {
 
         startPage.create = function() {
             util.clear( canvas );
-            util.text(canvas, context, canvas.width/2, 4 , "info");
+            context.save();
+            context.fillStyle = "#f00";
+            context.drawImage(window.gb.imgs["app/imgs/start.png"], 0, 0, canvas.width, canvas.height);
+            util.text(canvas, context, canvas.width/2, 4 , "地球保卫战");
             startHandle = util.button(canvas, context, canvas.width/2, canvas.height/2-80 , "start", start);
             helpHandle = util.button(canvas, context, canvas.width/2, canvas.height/2 , "help", help);
-            namesHandle = util.button(canvas, context, canvas.width/2, canvas.height/2+80 , "names", names);
+            namesHandle = util.button(canvas, context, canvas.width/2, canvas.height/2+80 , "about", names);
+            context.restore();
         };
 
         startPage.destory = function () {

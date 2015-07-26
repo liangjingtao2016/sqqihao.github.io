@@ -44,6 +44,7 @@ var util = {
 
         };
         context.save();
+        context.fillStyle = "#fff";
         context.font="20px Georgia";
         context.textBaseline = "top";
         context.textAlign="center";

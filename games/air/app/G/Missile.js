@@ -70,7 +70,11 @@ define(["app/C/Sprite"], function ( Sprite ) {
          * @desc
          * */
         missile.draw = function() {
-            this.context.drawImage(this.bg, this.x, this.y , this.w, this.h);
+            try{
+                this.context.drawImage(this.bg, this.x, this.y , this.w, this.h);
+            }catch(e) {
+                console.log(e);
+            }
         };
 
         missile.destory = function () {

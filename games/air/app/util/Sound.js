@@ -431,9 +431,13 @@ var GT = GT || {};
             this.audio.pause();
         },
         resume: function() {
-            this.audio.currentTime = this.beginTime + this.currentTime;
-            this.audio.play();
-            this.playing = true;
+            try{
+                this.audio.currentTime = this.beginTime + this.currentTime;
+                this.audio.play();
+                this.playing = true;
+            }catch(e){
+
+            }
         },
         stop: function() {
             this.audio.pause();

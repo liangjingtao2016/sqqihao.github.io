@@ -93,6 +93,7 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite"], function( Plane, EMiss
                                                     content : '游戏成功, 进入下一关!',
                                                     title : 'alert',
                                                     ok : function() {
+                                                        _this.task.clearInterval();
                                                         g( window.gb.level );
                                                     },
                                                     cancel : function(){

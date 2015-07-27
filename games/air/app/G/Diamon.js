@@ -71,7 +71,12 @@ define(["app/C/Sprite"], function( Sprite ) {
         };
 
         diamon.draw = function() {
-            this.context.drawImage(this.bg , 0, 0, 65, 65, this.x, this.y, this.w, this.h);
+
+            try{
+                this.context.drawImage(this.bg , 0, 0, 65, 65, this.x, this.y, this.w, this.h);
+            }catch(e) {
+                console.log(e);
+            }
         };
 
     });

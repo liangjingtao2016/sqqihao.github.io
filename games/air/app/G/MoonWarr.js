@@ -237,7 +237,11 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
              this.opt.context.fillRect(0, 0 , 100, 100);
              */
             var dx = this.sprite.calc().now;
-            this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.w, this.h);
+            try{
+                this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.w, this.h);
+            }catch(e) {
+                console.log(e);
+            }
 
         };
 

@@ -44,10 +44,14 @@ define(["app/C/Sprite"], function( Sprite ) {
 
             _this.task.addTask(function() {
                 var now = _this.detorySprite.calc().now;
-                _this.opt.context.drawImage(_this.imgData.name, now*_this.imgData.w, 0, _this.imgData.w, _this.imgData.h , _this.x, (_this.y )-20,  _this.imgData.w, _this.imgData.h );
+                try{
+                    _this.opt.context.drawImage(_this.imgData.name, now*_this.imgData.w, 0, _this.imgData.w, _this.imgData.h , _this.x, (_this.y )-20,  _this.imgData.w, _this.imgData.h );
+                }catch(e){
+                    console.log(e);
+                };
                 if(now === _this.imgData.frames ) {
                     _this.task.removeTask( arguments.callee );
-                }
+                };
             });
         };
 

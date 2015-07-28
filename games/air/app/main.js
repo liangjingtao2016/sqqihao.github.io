@@ -92,6 +92,22 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         window.canvas = document.getElementsByTagName("canvas")[0];
         window.context = canvas.getContext("2d");
 
+        //自动适配低屏幕分辨率的手机;
+        (function (doc, win) {
+            if( typeof window.ontouchstart === "object") {
+                var docEl = doc.documentElement
+                var clientHeight = docEl.clientHeight;
+                if (!clientHeight || clientHeight>600) return;
+                canvas.height = clientHeight-20;
+            };
+        })(document, window);
+
+        //取消ios手机，iospad和小米pad中坑爹的上下滚动；
+        document.addEventListener("touchmove",function(e){
+            e.preventDefault();
+            e.stopPropagation();
+        },false);
+
         window.g = function ( level ) {
 
             //生成关卡数据;

@@ -24,7 +24,7 @@ define(function() {
         return this;
     };
 
-    CommonControl.prototype.PC = function(leftFn, upFn, rightFn, bottomFn ,callback) {
+    CommonControl.prototype.PC = function(leftFn, upFn, rightFn, bottomFn ,callback, obj) {
         var _this = this;
         var fn;
         //系统默认的keydown是第一次触发，然后间隔一些毫秒再持续重新触发;
@@ -55,6 +55,49 @@ define(function() {
             }, 10);
         });
         addEvent(window, "keyup", function() {
+            clearInterval( _this.timer );
+        });
+
+
+        //处理click的事件;
+        var _this = this;
+        var disX = 0,disY = 0, dirX , dirY;
+        var evFn =  function(ev) {
+            clearInterval( _this.timer );
+            disX = ev.clientX;
+            disY = ev.clientY;
+            var fns = [];
+            //如果点击的距离超过50像素触发事件;
+            if( Math.abs(disX-obj.x)<obj.dis &&  Math.abs(disY-obj.y)<obj.dis) {
+
+                return ;
+
+            }else{
+
+                //如果当前的x大于物体右侧, 就像右走;
+                if(disX > obj.x ) {
+                    fns.push( rightFn.bind(rightFn,disX, obj.x, disY) );
+                }else{
+                    fns.push( leftFn.bind(leftFn, disX, obj.x, disY) );
+                };
+
+                //如果当前的Y大于物体的y轴, 就像下走;
+                if( disY > obj.y ) {
+                    fns.push( bottomFn.bind(bottomFn,disY,obj.y, disX) );
+                }else{
+                    fns.push( upFn.bind(bottomFn,disY,obj.y, disX) );
+                };
+            };
+            _this.timer = setInterval(function() {
+                for(var i=0; i<fns.length; i++ ) {
+                    fns[i].call(fns[i], obj.el);
+                };
+                callback&&callback();
+            }, 10);
+        };
+        addEvent(obj.canvas, "mousedown", evFn);
+        addEvent(obj.canvas, "mousemove", evFn);
+        addEvent(obj.canvas, "mouseup", function() {
             clearInterval( _this.timer );
         });
     };

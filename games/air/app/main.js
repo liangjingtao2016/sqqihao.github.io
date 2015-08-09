@@ -86,8 +86,8 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
 require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon"],
-    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon) {
+        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS"],
+    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon, FPS) {
 
         window.canvas = document.getElementsByTagName("canvas")[0];
         window.context = canvas.getContext("2d");
@@ -117,6 +117,10 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
 
             var now = Date.now();
             var task = new TaskList();
+            var fps = new FPS({
+                canvas : canvas,
+                context : context
+            });
             var moonWarr = new MoonWarr({
                 bg : window.gb.imgs[window.gb.userData.bg],
                 canvas : canvas,
@@ -171,6 +175,9 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
                 /*
                  enemy.setup();
                  enemy.draw();*/
+            }).addTask(function() {
+                fps.step();
+                fps.draw();
             }).setInterval(30);
 
         };

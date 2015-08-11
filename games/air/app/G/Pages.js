@@ -30,8 +30,8 @@ define(["app/C/Page"], function ( Page ) {
         page.destory = function () {
             context.clearRect(0, 0, canvas.width, canvas.height);
             //清除图片的点击事件;
-            util.removeEv(canvas,"click", plant0);
-            util.removeEv(canvas,"click", plant1);
+            util.removeEv(canvas,typeof window.ontouchstart === "object" ? "touchstart" : "click", plant0);
+            util.removeEv(canvas,typeof window.ontouchstart === "object" ? "touchstart" : "click", plant1);
         };
 
     });
@@ -62,7 +62,7 @@ define(["app/C/Page"], function ( Page ) {
 
         page.destory = function () {
             util.clear( canvas );
-            util.removeEv(canvas, "click", backFn);
+            util.removeEv(canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", backFn);
         };
 
     });
@@ -97,7 +97,7 @@ define(["app/C/Page"], function ( Page ) {
         namePage.destory = function () {
 
             util.clear( canvas );
-            util.removeEv(canvas, "click", backFn);
+            util.removeEv(canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", backFn);
 
         };
 
@@ -149,9 +149,9 @@ define(["app/C/Page"], function ( Page ) {
 
         startPage.destory = function () {
             //audio.pause();
-            util.removeEv( canvas, "click", startHandle );
-            util.removeEv( canvas, "click", helpHandle );
-            util.removeEv( canvas, "click", namesHandle );
+            util.removeEv( canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", startHandle );
+            util.removeEv( canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", helpHandle );
+            util.removeEv( canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", namesHandle );
             util.clear( canvas );
         };
 

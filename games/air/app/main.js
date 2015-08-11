@@ -86,7 +86,7 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
 require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS"],
+        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS","app/C/contextmenu"],
     function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon, FPS) {
 
         window.canvas = document.getElementsByTagName("canvas")[0];
@@ -99,6 +99,9 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
                 var clientHeight = docEl.clientHeight;
                 if (!clientHeight || clientHeight>600) return;
                 canvas.height = clientHeight-20;
+                if(canvas.width<canvas.height){
+                    canvas.width = window.innerWidth;
+                }
             };
         })(document, window);
 

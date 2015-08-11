@@ -59,8 +59,8 @@ var util = {
         //context.stroke();
         context.restore();
         var fn = function(ev) {
-            var mouseX = ev.pageX - this.offsetLeft;
-            var mouseY = ev.pageY - this.offsetTop;
+            var mouseX = ev.pageX ||  ev.touches[0].pageX - this.offsetLeft;
+            var mouseY = ev.pageY ||  ev.touches[0].pageY - this.offsetTop;
             if( util.pointInRect(mouseX, mouseY, left-40, top-8, 80, 40) ) {
                 callback&&callback();
                 //console.log("on point");
@@ -68,7 +68,7 @@ var util = {
                 //console.log("on false")
             }
         };
-        util.addEv(canvas, "click", fn);
+        util.addEv(canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", fn);
         return fn;
     },
 
@@ -81,8 +81,8 @@ var util = {
         context.drawImage(img, left, top, width, height );
         context.restore();
         var fn = function(ev) {
-            var mouseX = ev.pageX - this.offsetLeft;
-            var mouseY = ev.pageY - this.offsetTop;
+            var mouseX = ev.pageX || ev.touches[0].pageX - this.offsetLeft;
+            var mouseY = ev.pageY || ev.touches[0].pageY - this.offsetTop;
             if( util.pointInRect(mouseX, mouseY,left, top, width, height) ) {
                 callback&&callback();
                 //console.log("on point");
@@ -90,7 +90,7 @@ var util = {
                 //console.log("on false")
             }
         };
-        util.addEv(canvas, "click", fn);
+        util.addEv(canvas, typeof window.ontouchstart === "object" ? "touchstart" : "click", fn);
         return fn;
 
     },

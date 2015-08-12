@@ -53,7 +53,7 @@ define(function () {
         var fn = function() {
             _this.timer&&requestAnimationFrame(function() {
                 _this.run.bind(_this)();
-                fn();
+                setTimeout(fn,10);
             });
         };
         fn();

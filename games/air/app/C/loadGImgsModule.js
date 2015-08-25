@@ -23,8 +23,8 @@ define(["app/C/Progress"], function ( Progress ) {
             context.save();
 
             context.fillStyle="#ECF0F1";
-            context.fillRect(0, 0, per*canvas.width, canvas.height);
-
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.font = "40px Arial";
             context.fillStyle = "#7F8C8D";
             context.fillText(parseInt(per*100)+"%",100,100);
 

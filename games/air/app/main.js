@@ -97,7 +97,7 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
             if( typeof window.ontouchstart === "object") {
                 var docEl = doc.documentElement
                 var clientHeight = docEl.clientHeight;
-                if (!clientHeight || clientHeight>600) return;
+                if (!clientHeight) return;
                 canvas.height = clientHeight-20;
                 if(canvas.width<canvas.height){
                     canvas.width = window.innerWidth;

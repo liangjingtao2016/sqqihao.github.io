@@ -50,8 +50,18 @@ define(function () {
         var _this = this;
         //this.timer = setInterval(this.run.bind(this), time);
         window.t = this;
+        var flag = true;
         var fn = function() {
             _this.timer&&requestAnimationFrame(function() {
+/*
+                //会少走一次;
+                if(flag) {
+                    flag = !flag;
+                }else{
+                    flag = !flag;
+                    _this.run.bind(_this)();
+                };
+                fn();*/
                 _this.run.bind(_this)();
                 fn();
             });

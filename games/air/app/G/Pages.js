@@ -52,7 +52,7 @@ define(["app/C/Page"], function ( Page ) {
             context.font = "30px Arial";
             context.fillText("help page", canvas.width/2, 30);
             context.font = "16px Arial";
-            context.fillText("在电脑端通过方向键移动", 0 , canvas.height-60);
+            context.fillText("在电脑端通过方向键或者鼠标可移动", 0 , canvas.height-60);
             context.fillText("在手机或者平板上直接触屏飞机可移动", 0 , canvas.height-30);
 
             backFn = util.button(canvas, context, 60, 10 , "back", function() {

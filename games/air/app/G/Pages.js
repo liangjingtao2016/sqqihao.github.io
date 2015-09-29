@@ -145,6 +145,7 @@ define(["app/C/Page"], function ( Page ) {
             context.fillStyle = "#f00";
             context.drawImage(window.gb.imgs["app/imgs/start.png"], 0, 0, canvas.width, canvas.height);
             util.text(canvas, context, canvas.width/2, 4 , "地球保卫战");
+
             startHandle = util.button(canvas, context, canvas.width/2, canvas.height/2-80 , "start", start);
             helpHandle = util.button(canvas, context, canvas.width/2, canvas.height/2 , "help", help);
             namesHandle = util.button(canvas, context, canvas.width/2, canvas.height/2+80 , "about", names);

@@ -94,7 +94,7 @@ require(["app/G/initDevice","app/util/loadImgs", "app/C/ExTaskList", "app/C/Page
         //初始化设备兼容性问题;
         initDevice(document , window, canvas);
         //初始化, 阻止右键菜单;
-        contextmenu(canvas);
+        contextmenu (canvas);
 
         window.g = function ( level ) {
 

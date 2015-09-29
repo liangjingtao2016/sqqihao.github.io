@@ -413,7 +413,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 if( isNaN(speed) ) speed = _this.speed;
                 _this.x+=speed;
                 if( _this.x>disX ) _this.x = disX;
-                if( _this.x>canvas.width-_this.w) _this.x = canvas.width-_this.h;
+                if( _this.x>_this.canvas.width-_this.w) _this.x = _this.canvas.width-_this.h;
 
             }, function ( disY, objY , disX) {
 
@@ -423,7 +423,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                 if( isNaN(speed) ) speed = _this.speed;
                 _this.y+=speed;
                 if( _this.y>disY )_this.y = disY;
-                if( _this.y>canvas.height - _this.h ) _this.y = canvas.height - _this.h;
+                if( _this.y>_this.canvas.height - _this.h ) _this.y = _this.canvas.height - _this.h;
 
             }, function(){},_this);
         };

@@ -64,6 +64,7 @@ define(["app/C/Sprite"], function( Sprite ) {
                 plane.addScore();
                 return ;
             };
+
             //如果超过界面，那么也删除自己;
             if(_this.x<-_this.w||_this.x>_this.canvas.width||_this.y<-_this.h||_this.y>_this.canvas.height) {
                 _this.removeTask();

@@ -103,6 +103,7 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
                 };
                 _this.task.addTask( eMTask );
             };
+
             var plane = this.task.plane;
             if( util.canvasCollision(
                 //子弹的信息;
@@ -126,6 +127,7 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
                     this.destory&&this.destory();
                 };
                 plane.judge();
+
                 //播放音乐;
                 explodeEffect.play();
             }

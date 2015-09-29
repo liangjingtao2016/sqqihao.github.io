@@ -1,9 +1,10 @@
 define(["app/C/Page"], function ( Page ) {
 
     var selectPage = P(Page, function ( page ) {
-        var plant0,plant1, canvas ;
-        page.init = function ( can ) {
+        var plant0,plant1, canvas , context;
+        page.init = function ( can, con ) {
             canvas = can;
+            context = con;
         };
 
         page.create = function () {
@@ -38,10 +39,11 @@ define(["app/C/Page"], function ( Page ) {
 
     var HelpPage = P(Page, function ( page ) {
 
-        var backFn, canvas;
+        var backFn, canvas, context;
 
-        page.init = function ( can ) {
+        page.init = function ( can, con ) {
             canvas = can;
+            context = con;
         };
 
         page.create = function () {
@@ -69,10 +71,11 @@ define(["app/C/Page"], function ( Page ) {
 
     var NamePage = P(Page, function ( namePage ) {
 
-        var backFn , canvas;
+        var backFn , canvas, context;
 
-        namePage.init = function ( can ) {
+        namePage.init = function ( can ,con) {
             canvas = can;
+            context = con;
         };
 
         namePage.create = function () {
@@ -106,31 +109,32 @@ define(["app/C/Page"], function ( Page ) {
     var StartPage =  P(Page, function( startPage ){
 
         //var audio = new Audio;
-        var canvas;
+        var canvas,context;
         var startHandle, helpHandle, namesHandle;
 
         var start = function () {
 
-            pages.add( new selectPage( canvas ) );
+            pages.add( new selectPage( canvas , context) );
 
         };
 
         var help = function() {
 
-            pages.add( new HelpPage( canvas ) );
+            pages.add( new HelpPage( canvas, context ) );
 
         };
 
         var names = function() {
 
-            pages.add( new NamePage( canvas ) );
+            pages.add( new NamePage( canvas, context ) );
 
         };
 
 
-        startPage.init = function( can ) {
+        startPage.init = function( can ,con) {
 
             canvas = can;
+            context = con;
             //audio.playmp3("./app/audio/mainMainMusic.mp3");
 
         };

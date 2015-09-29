@@ -1,5 +1,5 @@
 define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Boss1", "app/G/Boss2"], function ( Enemy ,EMissile, Boss, Boss0, Boss1, Boss2) {
-    return function ( canvas) {
+    return function ( canvas ,context) {
         //野怪地图
         var LEVELS = {
             //一级;
@@ -40,7 +40,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
             //200秒内出现的飞机;
             LEVELS[0][ parseInt( Math.floor(Math.random()*200)+"000")  ] = [[Enemy, {
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs[
                     [
                         //"app/imgs/enemy6.png","app/imgs/enemy7.png","app/imgs/enemy8.png","app/imgs/enemy9.png
@@ -68,7 +68,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
         group(LEVELS[0], 1000, 4000, [
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context :context,
                 bg : window.gb.imgs["app/imgs/enemy0.png"],
                 w : 40,
                 h : 40,
@@ -90,7 +90,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy1.png"],
                 w : 40,
                 h : 40,
@@ -112,7 +112,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy1.png"],
                 w : 40,
                 h : 40,
@@ -135,7 +135,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy3.png"],
                 w : 40,
                 h : 40,
@@ -157,7 +157,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy4.png"],
                 w : 40,
                 h : 40,
@@ -179,7 +179,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy5.png"],
                 w : 40,
                 h : 40,
@@ -202,7 +202,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy2.png"],
                 w : 50,
                 h : 50,
@@ -224,7 +224,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy5.png"],
                 w : 50,
                 h : 50,
@@ -246,7 +246,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy4.png"],
                 w : 50,
                 h : 50,
@@ -267,7 +267,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
         //第一关的boss要出现了;
         LEVELS[0][ "210000" ] = [[Boss0, {
             canvas : canvas,
-            context : canvas.getContext('2d'),
+            context : context,
             bg : window.gb.imgs["app/imgs/boss.png"],
             w : 176,
             h : 80,
@@ -298,7 +298,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
             //200秒内出现的飞机;
             LEVELS[1][ parseInt( Math.floor(Math.random()*200)+"000")  ] = [[Enemy, {
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs[
                     [
                         "app/imgs/enemy6.png","app/imgs/enemy7.png","app/imgs/enemy8.png","app/imgs/enemy9.png"][_.random(0,3)]
@@ -324,7 +324,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
         group(LEVELS[1], 1000, 4000, [
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy5.png"],
                 w : 40,
                 h : 40,
@@ -346,7 +346,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy6.png"],
                 w : 40,
                 h : 40,
@@ -368,7 +368,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy7.png"],
                 w : 40,
                 h : 40,
@@ -391,7 +391,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy8.png"],
                 w : 40,
                 h : 40,
@@ -413,7 +413,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy9.png"],
                 w : 40,
                 h : 40,
@@ -435,7 +435,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy6.png"],
                 w : 40,
                 h : 40,
@@ -458,7 +458,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy8.png"],
                 w : 50,
                 h : 50,
@@ -480,7 +480,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy9.png"],
                 w : 50,
                 h : 50,
@@ -502,7 +502,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy7.png"],
                 w : 50,
                 h : 50,
@@ -523,7 +523,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
         //第二关;
         LEVELS[1]["210000"] = [[Boss1, {
             canvas : canvas,
-            context : canvas.getContext('2d'),
+            context : context,
             bg : window.gb.imgs["app/imgs/boss0.png"],
             w : 176,
             h : 80,
@@ -553,7 +553,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
             //200秒内出现的飞机;
             LEVELS[2][ parseInt( Math.floor(Math.random()*200)+"000")  ] = [[Enemy, {
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs[
                     [
                         "app/imgs/enemy0.png","app/imgs/enemy4.png","app/imgs/enemy6.png","app/imgs/enemy8.png","app/imgs/enemy9.png"][_.random(0,4)]
@@ -579,7 +579,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
         group(LEVELS[2], 1000, 4000, [
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy0.png"],
                 w : 60,
                 h : 60,
@@ -601,7 +601,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy8.png"],
                 w : 60,
                 h : 60,
@@ -623,7 +623,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy9.png"],
                 w : 60,
                 h : 60,
@@ -646,7 +646,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy0.png"],
                 w : 60,
                 h : 60,
@@ -668,7 +668,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy9.png"],
                 w : 60,
                 h : 60,
@@ -691,7 +691,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy8.png"],
                 w : 60,
                 h : 60,
@@ -715,7 +715,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy8.png"],
                 w : 60,
                 h : 60,
@@ -737,7 +737,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy9.png"],
                 w : 60,
                 h : 60,
@@ -759,7 +759,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
 
             [Enemy,{
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 bg : window.gb.imgs["app/imgs/enemy7.png"],
                 w : 60,
                 h : 60,
@@ -781,7 +781,7 @@ define(["app/G/Enemy", "app/G/EMissile", "app/G/Boss", "app/G/Boss0", "app/G/Bos
         //第三关;
         LEVELS[2]["210000"] = [[Boss2, {
             canvas : canvas,
-            context : canvas.getContext('2d'),
+            context : context,
             bg : window.gb.imgs["app/imgs/boss3.png"],
             w : 149,
             h : 193,

@@ -8,7 +8,7 @@ var cfg = cfg || {
 window.gb = window.gb || {
 
     //所有的用户信息保存这里面
-    users : ["app/imgs/start.png","app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/logo_aliyun.jpg","app/imgs/plane8.png","app/imgs/plane9.png",
+    users : ["app/imgs/start.png","app/imgs/background1.jpg","app/imgs/plane11.png", "app/imgs/plane12.png", "app/imgs/plane8.png","app/imgs/plane9.png",
         "app/imgs/back_img.png","app/imgs/back_img1.png","app/imgs/back_img2.png",
         "app/imgs/flash.png", "app/imgs/life.png", "app/imgs/money.png", "app/imgs/power.png","app/imgs/speed.png",
         "app/imgs/mybullet1.png", "app/imgs/mybullet2.png", "app/imgs/mybullet3.png",
@@ -23,7 +23,6 @@ window.gb = window.gb || {
         "app/imgs/bossbullet2.png","app/imgs/pd30.png",
         "app/imgs/g2.jpg", "app/imgs/author.png"
     ],
-
 
     //当用户选择的信息， 这要初始化用户的生命值， 声明条数， 速度， 分数， 金钱数等信息;
     initUserData : function( user ) {
@@ -84,80 +83,74 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
 });
 
-require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
+require(["app/G/initDevice","app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS","app/C/contextmenu"],
-    function( loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon, FPS) {
+        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS","app/C/contextmenu","app/util/Param"],
+    function(initDevice, loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon, FPS, contextmenu, getParam) {
 
-        window.canvas = document.getElementsByTagName("canvas")[0];
-        window.context = canvas.getContext("2d");
+        var canvas = document.getElementsByTagName("canvas")[0];
+        var context = canvas.getContext("2d");
 
-        //自动适配低屏幕分辨率的手机;
-        (function (doc, win) {
-            if( typeof window.ontouchstart === "object") {
-                var docEl = doc.documentElement
-                var clientHeight = docEl.clientHeight;
-                if (!clientHeight) return;
-                canvas.height = clientHeight-20;
-                if(canvas.width<canvas.height){
-                    canvas.width = window.innerWidth;
-                }
-            };
-        })(document, window);
-
-        //取消ios手机，iospad和小米pad中坑爹的上下滚动；
-        document.addEventListener("touchmove",function(e){
-            e.preventDefault();
-            e.stopPropagation();
-        },false);
+        //初始化设备兼容性问题;
+        initDevice(document , window, canvas);
+        //初始化, 阻止右键菜单;
+        contextmenu(canvas);
 
         window.g = function ( level ) {
 
             //生成关卡数据;
-            var LEVELS = Levels( canvas );
+            var LEVELS = Levels( canvas, context );
 
             window.gb.level = level || 0;
 
             var now = Date.now();
+
+            //创建人物列表;
             var task = new TaskList();
+
+            //显示fps;
             var fps = new FPS({
                 canvas : canvas,
                 context : context
             });
+
+            //飞船的初始化
             var moonWarr = new MoonWarr({
                 bg : window.gb.imgs[window.gb.userData.bg],
                 canvas : canvas,
-                context : canvas.getContext('2d'),
+                context : context,
                 task  : task
             });
-            var bg = new Bg(canvas, canvas.getContext('2d'),  window.gb.level + 1);
 
+            //幕布初始化
+            var bg = new Bg(canvas, context,  window.gb.level + 1);
+
+            //触发flash;
             moonWarr.flash();
 
             var info = new Info( canvas, context );
 
             //把战斗机保存到任务列表中;
             task.plane( moonWarr );
+
             moonWarr.drawDashLine();
             //test
             var steupDraw = function() {
+                //计算飞机的移动;
                 moonWarr.setup.bind(moonWarr)();
-                moonWarr.draw.bind(moonWarr)();
             };
 
             task.addTask( function() {
                 util.clear(canvas);
             }).addTask(function() {
+                //计算幕布的移动;
                 bg.setup();
-                bg.draw();
             }).addTask(function () {
                 window.gb.userData.money = moonWarr.money;
                 window.gb.userData.blood = moonWarr.blood;
                 window.gb.userData.lifes = moonWarr.lifes;
-                //绘制用户信息;
+                //计算用户生命值, 金币值等信息;
                 info.setup( window.gb.userData );
-            }).addTask(function() {
-                info.draw.bind( info )();
             }).addTask(steupDraw).addTask(function() {
                 var times = Date.now() - now;
                 var timeLine =  (times+"").replace(/\d{3,3}$/,"000");
@@ -179,8 +172,24 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
                  enemy.setup();
                  enemy.draw();*/
             }).addTask(function() {
+
+                //计算fps;
                 fps.step();
+
+            }).addTask(function() {
+
+                //绘制幕布
+                bg.draw();
+
+                //绘制fps;
                 fps.draw();
+
+                //绘制用户信息;
+                info.draw.bind( info )();
+
+                //绘制飞船;
+                moonWarr.draw.bind(moonWarr)();
+
             }).setInterval(30);
 
         };
@@ -193,12 +202,13 @@ require(["app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
 
         loadGImgsModule(canvas, context ,function () {
 
-            var test = false;
-            if( test ) {
+            //通过url中的参数设定是否打开测试模式;
+            var test = getParam("test");
+            if( !!test ) {
                 g(0);
             }else{
                 window.pages = new Pages();
-                pages.add( new gPages.StartPage( canvas ) );
+                pages.add( new gPages.StartPage( canvas, context ) );
                 pages.start();
             };
 

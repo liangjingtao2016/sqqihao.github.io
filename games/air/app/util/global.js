@@ -1,4 +1,5 @@
 var util = {
+
     domCollision : function ( oDiv, oDiv2 ) {
 
         var t1 = oDiv.offsetTop;
@@ -17,6 +18,7 @@ var util = {
         };
 
     },
+
     canvasCollision : function(obj0, obj1) {
         if( obj0.left>obj1.right || obj0.right<obj1.left || obj0.top>obj1.bottom || obj0.bottom< obj1.top) {
             return false;
@@ -24,12 +26,14 @@ var util = {
             return true;
         }
     },
+
     pointInRect : function ( pointX ,pointY, left, top, width, height ) {
         if( left<pointX && pointX<(left+width) && pointY>top&&(pointY<top+height) ) {
             return true;
         };
         return false
     },
+
     text : function (canvas, context, left, top, message ) {
         context.save();
         context.font="40px Georgia";
@@ -38,7 +42,9 @@ var util = {
         context.fillText( message, left, top);
         context.save();
     },
+
     fnId : 0,
+
     button : function(canvas, context, left, top, message, callback ) {
         callback = callback || function () {
 

@@ -18,6 +18,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.y = opt.canvas.height-40;
             this.x = (opt.canvas.width-40)/2;
             this.canvas = opt.canvas;
+            this.context = opt.context;
             this.w = 40;
             this.h = 40;
             this.dis = 20;
@@ -205,10 +206,11 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                         var equit = this.equits[i];
                         (function () {
 
-                            var missile2 = new Missile( this.opt.canvas, this.opt.canvas.getContext("2d"), window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, fn : equit.fn, task : _this.task});
+                            var missile2 = new Missile( this.opt.canvas, this.opt.context, window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, fn : equit.fn, task : _this.task});
 
                             var missileTask = function () {
                                 missile2.setup();
+                                missile2.draw();
                                 missile2.draw();
                                 if( missile2.outOfArea() ) {
                                     missile2.destory();
@@ -230,12 +232,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
         };
 
         moon.draw = function () {
-            //this.equits&&this.equits();
 
-            /*
-             this.opt.context.fillStyle = "#f00";
-             this.opt.context.fillRect(0, 0 , 100, 100);
-             */
             var dx = this.sprite.calc().now;
             try{
                 this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.w, this.h);

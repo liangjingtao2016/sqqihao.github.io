@@ -220,7 +220,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                         missile2.remove = function() {
                             _this.task.removeTask( missileTask );
                         };
-                        
+
                         _this.task.addTask( missileTask );
                     }
 

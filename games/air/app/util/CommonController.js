@@ -96,7 +96,6 @@ define(function() {
             }, 10);
         };
         addEvent(obj.canvas, "mousedown", evFn);
-        addEvent(obj.canvas, "mousemove", evFn);
         addEvent(obj.canvas, "mouseup", function() {
             clearInterval( _this.timer );
         });

@@ -204,25 +204,24 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     if( this.equitsFlag[i] ) {
 
                         var equit = this.equits[i];
-                        (function () {
 
-                            var missile2 = new Missile( this.opt.canvas, this.opt.context, window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, fn : equit.fn, task : _this.task});
+                        var missile2 = new Missile( this.opt.canvas, this.opt.context, window.gb.imgs[equit.bg],this.x + equit.dx, this.y + equit.dy, equit.w, equit.h, { speedX : equit.speedX, speedY : equit.speedY, damage : equit.damage, fn : equit.fn, task : _this.task});
 
-                            var missileTask = function () {
-                                missile2.setup();
-                                missile2.draw();
-                                missile2.draw();
-                                if( missile2.outOfArea() ) {
-                                    missile2.destory();
-                                    //从task列表删除该函数;
-                                    _this.task.removeTask( arguments.callee );
-                                };
+                        var missileTask = function () {
+                            missile2.setup();
+                            missile2.draw();
+                            missile2.draw();
+                            if( missile2.outOfArea() ) {
+                                missile2.destory();
+                                //从task列表删除该函数;
+                                _this.task.removeTask( arguments.callee );
                             };
-                            missile2.remove = function() {
-                                _this.task.removeTask( missileTask );
-                            }
-                            _this.task.addTask( missileTask );
-                        }).call(this);
+                        };
+                        missile2.remove = function() {
+                            _this.task.removeTask( missileTask );
+                        };
+                        
+                        _this.task.addTask( missileTask );
                     }
 
                 };

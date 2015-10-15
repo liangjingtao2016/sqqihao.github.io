@@ -50,17 +50,6 @@ window.gb = window.gb || {
                 bg : "app/imgs/plane9.png",
                 frames : 0,
                 superBomb : 2
-            },
-
-            "app/imgs/logo_aliyun.jpg" : {
-                blood : 10,
-                lifes : 4,
-                speed : 1,
-                score : 0,
-                frames : 0,
-                money : 0,
-                bg :"app/imgs/logo_aliyun.jpg",
-                superBomb : 2
             }
 
         }[user];

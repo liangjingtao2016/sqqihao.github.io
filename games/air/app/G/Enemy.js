@@ -1,5 +1,19 @@
 define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G/Power"], function(Plane, EMissile, Sprite, Diamon, Power) {
 
+    //敌机要走的随机路径参数;
+    var route = {
+        straight: { x: 0,   y: -50 ,
+            E: 100 },
+        ltr:      { x: 0,   y: -100,
+            B: 75, C: 1, E: 100 },
+        circle:   { x: 250,   y: -50,
+            A: 0,  B: -100, C: 1, E: 20, F: 100, G: 1, H: Math.PI/2 },
+        wiggle:   { x: 100, y: -50,
+            B: 50, C: 4, E: 100 },
+        step:     { x: 0,   y: -50,
+            B: 150, C: 1.2, E: 75 }
+    };
+
     /**
      * @desc 敌人飞机模型;
      * */
@@ -26,12 +40,13 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
             this.x = opt.x || 0;
             this.y = opt.y || 0;
             this.speedX = typeof opt.speedX === "number" ? opt.speedX : 1;
-            this.speedY = opt.speedY || 1;
+            this.speedY =  typeof opt.speedY === "number" ? opt.speedY : 1;
             this.w = opt.w || 40;
             this.h = opt.h || 40;
             this.blood = opt.blood || 2;
             this.speed = opt.speed || 2;
             this.sprite = new Sprite("testData", 20, 500);
+            this.createTime = Date.now();
             var taskFn = function() {
                 _this.setup();
                 _this.draw();

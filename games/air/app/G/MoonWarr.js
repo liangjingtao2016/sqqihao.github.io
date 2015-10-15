@@ -40,6 +40,16 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
 */
             this.equits = [
                 {
+                    bg:"app/imgs/hole.png",
+                    damage : 3,
+                    speedX : 0,
+                    speedY : -5,
+                    dx : 4,
+                    dy : -20,
+                    w : 30,
+                    h : 30
+                },
+                {
                     bg : "app/imgs/mybullet1.png",
                     damage : 1,
                     speedX : 0,
@@ -138,16 +148,6 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
                     dy : -20,
                     w : 10,
                     h : 14
-                },
-                {
-                    bg:"app/imgs/hole.png",
-                    damage : 3,
-                    speedX : 0,
-                    speedY : -5,
-                    dx : 4,
-                    dy : -20,
-                    w : 30,
-                    h : 30
                 },{
                     bg : "app/imgs/bomb.png",
                     damage : 4,

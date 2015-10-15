@@ -72,7 +72,7 @@ define(function () {
      * @desc 暂停执行任务列表
      * */
     TaskList.prototype.clearInterval = function() {
-        this.timer=0;
+        this.timer = 0;
     };
     /**
      * TaskList主方法结束*/

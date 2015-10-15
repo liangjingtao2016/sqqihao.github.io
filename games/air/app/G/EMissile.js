@@ -35,6 +35,7 @@ define(["app/G/Missile","app/C/Sprite"] ,function ( Missile ,Sprite) {
                 explodeEffect.play();
                 this.remove&&this.remove();
                 console.log("collision");
+                return "既然碰到了就不要循环了，直接退出";
             }
         };
 

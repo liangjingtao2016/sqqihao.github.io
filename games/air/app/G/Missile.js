@@ -62,6 +62,7 @@ define(["app/C/Sprite"], function ( Sprite ) {
                     explodeEffect.play();
                     this.remove&&this.remove();
                     console.log("collision");
+                    return "既然碰到了就不要循环了，直接退出";
                 }
             };
         };

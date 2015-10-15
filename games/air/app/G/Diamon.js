@@ -62,7 +62,7 @@ define(["app/C/Sprite"], function( Sprite ) {
                 diamonAudio.play();
                 _this.removeTask();
                 plane.addScore();
-                return ;
+                return  "既然碰到了就不要循环了，直接退出";;
             };
 
             //如果超过界面，那么也删除自己;

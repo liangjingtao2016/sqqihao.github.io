@@ -29,7 +29,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
 
             this.speed = opt.speed || 2;
             this.equitsFlag =
-                [true,true] ;
+                [true] ;
                /* [
                     true ,true, true, true ,
                 true ,true, true, true ,
@@ -193,7 +193,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.bindEv();
 
             //初始话子弹的发射, 300毫秒自动发射;
-            this.missileSprite = new Sprite("testData", 16, 640);
+            this.missileSprite = new Sprite("testData", 20, 800);
         };
 
         moon.setup = function () {

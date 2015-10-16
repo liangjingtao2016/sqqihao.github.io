@@ -45,7 +45,7 @@ define(["app/G/Plane", "app/G/EMissile", "app/C/Sprite", "app/G/Diamon" , "app/G
             this.h = opt.h || 40;
             this.blood = opt.blood || 2;
             this.speed = opt.speed || 2;
-            this.sprite = new Sprite("testData", 20, 640);
+            this.sprite = new Sprite("testData", _.random(30,60), 800);
             this.createTime = Date.now();
             var taskFn = function() {
                 _this.setup();

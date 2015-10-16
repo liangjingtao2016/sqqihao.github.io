@@ -226,7 +226,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
 
                             _this.task.addTask( missileTask );
 
-                        })(equit);
+                        }).call(_this,equit);
                     }
 
                 };

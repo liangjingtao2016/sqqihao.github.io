@@ -9,7 +9,7 @@ define(["app/C/Progress"], function ( Progress ) {
                 return degrees * (Math.PI / 180);
             },
             circle = {
-                x: (cw / 2) + 5,
+                x: 160,
                 y: 200,
                 radius: 90,
                 speed: 2,

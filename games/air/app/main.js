@@ -48,7 +48,7 @@ window.gb = window.gb || {
                 score : 0,
                 money : 0,
                 bg : "app/imgs/plane9.png",
-                frames : 0,
+                frames : 1,
                 superBomb : 2
             }
 

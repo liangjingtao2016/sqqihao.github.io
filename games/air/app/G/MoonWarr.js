@@ -241,6 +241,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             try{
                 this.opt.context.drawImage(this.opt.bg , dx*78 || 0, 0, 78, 85, this.x, this.y, this.w, this.h);
             }catch(e) {
+                this.opt.context.drawImage(this.opt.bg , 0, 0, 78, 85, this.x, this.y, this.w, this.h);
                 //console.log(e);
             }
 

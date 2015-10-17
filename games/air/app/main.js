@@ -21,7 +21,7 @@ window.gb = window.gb || {
         "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png",
         "app/imgs/boss.png","app/imgs/boss0.png","app/imgs/boss4.png",
         "app/imgs/bossbullet2.png","app/imgs/pd30.png",
-        "app/imgs/g2.jpg", "app/imgs/author.png"
+        "app/imgs/g2.jpg", "app/imgs/author.png","app/imgs/inva.png"
     ],
 
     //当用户选择的信息， 这要初始化用户的生命值， 声明条数， 速度， 分数， 金钱数等信息;
@@ -68,7 +68,7 @@ window.gb = window.gb || {
 
 };
 
-require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/requestAnimationFrame", "app/Model/Audios" ], function() {
+require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/requestAnimationFrame", "app/Model/Audios","app/util/patch" ], function() {
 
 });
 

@@ -41,7 +41,7 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
             this.equits = [
                 {
                     bg:"app/imgs/hole.png",
-                    damage : 3,
+                    damage : 2,
                     speedX : 0,
                     speedY : -5,
                     dx : 4,
@@ -239,9 +239,9 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
 
             var dx = this.sprite.calc().now;
             try{
-                this.opt.context.drawImage(this.opt.bg, dx*78, 0, 78, 85, this.x, this.y, this.w, this.h);
+                this.opt.context.drawImage(this.opt.bg , dx*78 || 0, 0, 78, 85, this.x, this.y, this.w, this.h);
             }catch(e) {
-                console.log(e);
+                //console.log(e);
             }
 
         };

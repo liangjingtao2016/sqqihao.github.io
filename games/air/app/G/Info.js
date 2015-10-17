@@ -49,28 +49,27 @@ define(function() {
 
         info.draw = function () {
             context.save();
-            context.font = "bold 10px serif";
+            context.font = "bold 15px Jocoba";
             context.fillStyle = "#f00";
-            context.fillRect( 10, 2, 3 ,9);
-            context.fillRect( 14, 2, 3 ,9);
-            context.fillRect( 18, 2, 3 ,9);
+            context.fillRect( 20, 2, 10 ,20);
+            context.fillRect( 34, 2, 10 ,20);
             context.fillStyle = "#D35400";
             context.textBaseline = "top";
-            context.fillText("blood ： ", 24, 0);
-            context.fillText(blood, 70, 0);
+            context.fillText("blood ： ", 52, 4);
+            context.fillText(blood, 114, 4);
 
-            context.drawImage( window.gb.imgs["app/imgs/life.png"], 0, 0 ,10, 10, 10,22 , 10, 9 );
-            context.fillText("lifes ： ", 24,20);
-            context.fillText(lifes, 70,20);
+            context.drawImage( window.gb.imgs["app/imgs/life.png"], 0, 0 ,40, 40, 20, 28 , 20, 20 );
+            context.fillText("lifes ： ", 52, 30);
+            context.fillText(lifes, 114, 30);
 
-            context.drawImage( window.gb.imgs["app/imgs/money.png"], 0, 0 , 10, 10, 10, 42, 10 , 9);
+            context.drawImage( window.gb.imgs["app/imgs/money.png"], 0, 0 , 40, 40, 20, 52, 20 , 20);
             context.fillStyle = "#8E44AD";
-            context.fillText("money ： ", 24,40);
-            context.fillText(money, 70,40);
+            context.fillText("money ： ", 52, 50);
+            context.fillText(money, 114, 50);
 
-            context.drawImage( window.gb.imgs["app/imgs/power.png"], 0 ,0 ,16, 16, 10, 62, 10, 9);
-            context.fillText("score ： ", 24,60);
-            context.fillText(score, 70,60);
+            context.drawImage( window.gb.imgs["app/imgs/power.png"], 0 ,0 ,40, 40, 20, 76, 20, 20);
+            context.fillText("score ： ", 52, 76);
+            context.fillText(score, 114, 76);
             context.restore();
         };
 

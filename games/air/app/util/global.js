@@ -36,8 +36,8 @@ var util = {
 
     text : function (canvas, context, left, top, message ) {
         context.save();
-        context.font="40px Georgia";
-        context.textBaseline = "top";
+        context.font="40px ";
+        context.textBaseline = "bottom";
         context.textAlign="center";
         context.fillText( message, left, top);
         context.save();
@@ -51,12 +51,12 @@ var util = {
         };
         context.save();
         context.fillStyle = "#fff";
-        context.font="20px Georgia";
+        context.font="20px Jocoba";
         context.textBaseline = "top";
         context.textAlign="center";
         context.strokeStyle = "#2980B9";
         //context.fillStyle = "#3498DB";
-        context.rect(left-40,top-8,80,40);
+        context.roundRect(left-40,top-8,80,40, 10);
         //context.fill();
         context.stroke();
         //context

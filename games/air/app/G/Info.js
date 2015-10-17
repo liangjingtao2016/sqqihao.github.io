@@ -49,13 +49,13 @@ define(function() {
 
         info.draw = function () {
             context.save();
-            context.font = "bold 15px Jocoba";
+            context.font = "bold 15px ";
             context.fillStyle = "#f00";
             context.fillRect( 20, 2, 10 ,20);
             context.fillRect( 34, 2, 10 ,20);
             context.fillStyle = "#D35400";
             context.textBaseline = "top";
-            context.fillText("blood ： ", 52, 4);
+            context.fillText("bloods ： ", 52, 4);
             context.fillText(blood, 114, 4);
 
             context.drawImage( window.gb.imgs["app/imgs/life.png"], 0, 0 ,40, 40, 20, 28 , 20, 20 );

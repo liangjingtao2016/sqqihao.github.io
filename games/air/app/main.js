@@ -19,7 +19,7 @@ window.gb = window.gb || {
         "app/imgs/explosion0.png","app/imgs/explosion1.png","app/imgs/explosion2.png","app/imgs/explosion3.png","app/imgs/explosion4.png",
         "app/imgs/diamons/d0.png", "app/imgs/diamons/d1.png", "app/imgs/diamons/d2.png", "app/imgs/diamons/d3.png", "app/imgs/diamons/d4.png",
         "app/imgs/addbomb.png","app/imgs/addlife.png","app/imgs/addhealth.png","app/imgs/addpower.png",
-        "app/imgs/boss.png","app/imgs/boss0.png","app/imgs/boss4.png",
+        "app/imgs/boss.png","app/imgs/boss0.png","app/imgs/boss3.png",
         "app/imgs/bossbullet2.png","app/imgs/pd30.png",
         "app/imgs/g2.jpg", "app/imgs/author.png","app/imgs/inva.png"
     ],

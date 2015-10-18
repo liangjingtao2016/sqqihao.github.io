@@ -49,13 +49,23 @@ define(["app/C/Page"], function ( Page ) {
         page.create = function () {
             util.clear( canvas );
 
+            //context.drawImage(window.gb.imgs["app/imgs/g2.jpg"],0 , 0 , canvas.width, canvas.height);
+            var grad  = context.createLinearGradient(0,0, 0,canvas.height); grad.addColorStop(0,'rgb(192, 80, 77)');    // 红
+            grad.addColorStop(0,'#34495E');
+            grad.addColorStop(1,'#000');
+            context.fillStyle = grad;
+            context.rect(0,0 ,canvas.width, canvas.height);
+            context.fill();
             context.fillStyle = "#ffffff";
-            context.drawImage(window.gb.imgs["app/imgs/g2.jpg"],0 , 0 , canvas.width, canvas.height);
             context.font = "30px Arial";
-            context.fillText("help page", canvas.width/2, 30);
+            context.fillText("help", canvas.width/2, 30);
             context.font = "16px Arial";
+            context.fillText("游戏一共有三关： 每一关对应的BOSS为", 30, 80);
+            context.drawImage(window.gb.imgs["app/imgs/boss.png"], 60 , 100)
+            context.drawImage( window.gb.imgs["app/imgs/boss0.png"], 80 , 200);
+            context.drawImage(  window.gb.imgs["app/imgs/boss3.png"], 70 , 360);
             context.fillText("在电脑端通过方向键或者鼠标可移动", 0 , canvas.height-60);
-            context.fillText("在手机或者平板上直接触屏飞机可移动", 0 , canvas.height-30);
+            context.fillText("在手机或者平板上直接触屏飞机可移动 ~_~", 0 , canvas.height-30);
 
             backFn = util.button(canvas, context, 60, 10 , "back", function() {
                 pages.back();
@@ -88,12 +98,10 @@ define(["app/C/Page"], function ( Page ) {
                 pages.back();
             });
             context.font = "20px Arial";
-            context.fillText("about page", canvas.width/2, 20);
-            context.fillText("author qihao", canvas.width/2, 40);
-            context.fillText("designer qihao", canvas.width/2, 60);
-            context.fillText("music qihao", canvas.width/2, 80);
-            context.fillText("my blog : ", 0, 180);
-            context.fillText("www.cnblogs.com/diligenceday", 0, 200);
+            context.fillText("About", canvas.width/2, 20);
+            context.fillText("Author qihao", canvas.width/2, 40);
+            context.fillText("Designer qihao", canvas.width/2, 60);
+            context.fillText("Music producer nono", canvas.width/2, 80);
 
         };
 

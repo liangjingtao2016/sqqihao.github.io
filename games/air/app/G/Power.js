@@ -111,6 +111,14 @@ define(["app/G/Diamon", "app/C/Sprite"], function( Diamon, Sprite ) {
             };
         };
 
+        power.draw = function() {
+
+            try{
+                this.context.drawImage(this.bg , 0, 0, this.bg.width, this.bg.height, this.x, this.y, this.w, this.h);
+            }catch(e) {
+                console.log(e);
+            }
+        };
     });
 
     return Power;

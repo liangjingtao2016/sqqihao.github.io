@@ -1,4 +1,4 @@
-define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonController"],  function ( Plane, Missile, Sprite, CommonController ) {
+define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonController","app/Model/wilddog"],  function ( Plane, Missile, Sprite, CommonController ,wilddog) {
 
     /**
      * @desc 主角的飞机模型;
@@ -434,13 +434,15 @@ define( ["app/G/Plane", "app/G/Missile" , "app/C/Sprite", "app/util/CommonContro
         };
 
         moon.remove = function() {
+            var _this = this;
             this.blood = 10;
             this.lifes--;
             if( this.lifes === -1 ) {
                 $.dialog({
-                    content : '游戏失败',
+                    content : '游戏失败，英雄，写上你的大名<input name="hero" id="hero" />',
                     title : '提示信息',
                     ok : function() {
+                        wilddog.set( $("#hero").val().substr(0,4), _this.money);
                         location.reload();
                     },
                     cancel : function(){

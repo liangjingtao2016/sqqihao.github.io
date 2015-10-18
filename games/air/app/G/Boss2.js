@@ -1,4 +1,4 @@
-define(["app/G/Boss"], function (Boss) {
+define(["app/G/Boss", "app/Model/wilddog"], function (Boss, wilddog) {
 
     var Boss2 = P(Boss, function (boss2, boss) {
 
@@ -123,9 +123,10 @@ define(["app/G/Boss"], function (Boss) {
         boss2.destory = function () {
 
             $.dialog({
-                content : '恭喜闯关成功， 谢谢您的支持',
+                content : '恭喜闯关成功， 谢谢您的支持, 最后输入您的大名吧<input name="hero" id="hero" />',
                 title : '提示信息',
                 ok : function() {
+                    wilddog.set( $("#hero").val().substr(0,4), "闯关成功");
                     location.reload();
                 },
                 cancel : function(){

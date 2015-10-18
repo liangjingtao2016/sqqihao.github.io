@@ -74,8 +74,8 @@ require(["app/util/Event","app/util/EventBase", "app/util/global", "app/util/req
 
 require(["app/G/initDevice","app/util/loadImgs", "app/C/ExTaskList", "app/C/Pages", "app/G/Pages",
         "app/C/Page", "app/C/Bg" , "app/G/Info", "app/G/MoonWarr",
-        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS","app/C/contextmenu","app/util/Param"],
-    function(initDevice, loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon, FPS, contextmenu, getParam) {
+        "app/C/loadGImgsModule", "app/Model/Levels", "app/G/Diamon" ,"app/C/FPS","app/C/contextmenu","app/util/Param","app/Model/wilddog"],
+    function(initDevice, loadImgs, TaskList , Pages, gPages, Page ,Bg, Info, MoonWarr, loadGImgsModule, Levels, Diamon, FPS, contextmenu, getParam, wilddog) {
 
         var canvas = document.getElementsByTagName("canvas")[0];
         var context = canvas.getContext("2d");

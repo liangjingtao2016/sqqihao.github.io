@@ -415,7 +415,7 @@ var typesHash = new Hashtable();
 //MyLog("save");
 
 var sendMessage = (request)=>{
-    console.log( JSON.stringify(request.chat) );
+    alert( JSON.stringify(request.chat) );
     $.ajax({
         url : "http://wxdp.qq.com/web/WebService/wxupload.ashx",
         type : 'POST',
@@ -541,3 +541,4 @@ function SaveChat()
 
 SaveChat();
 //MyLog("over");
+

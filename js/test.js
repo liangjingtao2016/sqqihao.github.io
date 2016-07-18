@@ -1,1 +1,1 @@
-alert(1);
+document.documentElement.innerHTML = "11111"
